@@ -1,85 +1,85 @@
-# 🚀 Electron Development Base
+# Sasuke Node v1.0.0
 
-セキュアで拡張可能なElectronアプリケーションの開発ベースプロジェクトです。
+セキュアで拡張可能なElectronアプリケーションの開発ベース
 
-## ✨ 特徴
+## 概要
 
-- **🔒 セキュア**: contextIsolation有効化、nodeIntegration無効化
-- **🎨 モダンUI**: レスポンシブデザインと美しいアニメーション
-- **🛠️ 開発環境**: ESLint、Prettier、Jest設定済み
-- **📦 ビルド対応**: Electron Builder設定済み
-- **🧪 テスト対応**: Jest設定とテストサンプル
-- **📚 ドキュメント**: 詳細なコメントとドキュメント
+Sasuke Node v1.0.0は、モダンなElectronアプリケーション開発のための包括的なベーステンプレートです。美しいダッシュボードUI、セキュリティ機能、そして開発者フレンドリーな環境を提供します。
 
-## 🏗️ プロジェクト構造
+## 特徴
 
-```
-electron-development-base/
-├── main.js              # メインプロセス
-├── preload.js           # プリロードスクリプト
-├── renderer/            # レンダラープロセス
-│   ├── index.html       # メインHTML
-│   ├── style.css        # スタイルシート
-│   └── script.js        # レンダラースクリプト
-├── package.json         # プロジェクト設定
-├── .eslintrc.js         # ESLint設定
-├── .prettierrc          # Prettier設定
-├── .gitignore           # Git除外設定
-└── README.md            # このファイル
-```
+### 🎨 美しいUI/UX
+- **レスポンシブデザイン**: あらゆるデバイスサイズに対応
+- **日本語フォント**: Noto Sans JPによる美しい日本語表示
+- **英語フォント**: Inter Tightによるモダンな英語表示
+- **ダークモード対応**: ライト/ダークテーマの切り替え
+- **Bootstrap 5**: 最新のBootstrapフレームワーク
 
-## 🚀 クイックスタート
+### 📊 ダッシュボード機能
+- **リアルタイムチャート**: ApexChartsによる美しいデータ可視化
+- **ウィジェット**: カスタマイズ可能な統計ウィジェット
+- **データテーブル**: 高機能なデータ表示・操作
+- **カレンダー**: FullCalendarによるスケジュール管理
+- **通知システム**: リアルタイム通知機能
 
-### 前提条件
+### 🔒 セキュリティ
+- **CSP (Content Security Policy)**: XSS攻撃からの保護
+- **セキュアなプリロード**: 安全なレンダラープロセス通信
+- **入力検証**: フォーム入力の適切な検証
+- **セッション管理**: 安全なユーザーセッション
 
-- Node.js 18.0.0以上
-- npm 8.0.0以上
+### 🛠️ 開発環境
+- **TypeScript対応**: 型安全な開発
+- **ESLint + Prettier**: コード品質の維持
+- **Jest**: 包括的なテスト環境
+- **Hot Reload**: 開発時の自動リロード
+- **ビルド最適化**: 本番環境向けの最適化
 
-### インストール
+## 必要環境
+
+- **Node.js**: 18.0.0以上
+- **npm**: 8.0.0以上
+- **OS**: Windows 10+, macOS 10.14+, Ubuntu 18.04+
+
+## インストール
 
 ```bash
-# リポジトリをクローン
-git clone https://github.com/yourusername/electron-development-base.git
-cd electron-development-base
+# リポジトリのクローン
+git clone https://github.com/sasuke/sasuke-node-v1.0.0.git
+cd sasuke-node-v1.0.0
 
-# 依存関係をインストール
+# 依存関係のインストール
 npm install
 ```
 
-### 開発
+## 使用方法
+
+### 開発モード
 
 ```bash
 # 開発モードで起動
 npm run dev
-
-# 通常モードで起動
-npm start
 ```
 
-### ビルド
+### 本番ビルド
 
 ```bash
 # 全プラットフォーム向けビルド
 npm run build
 
-# プラットフォーム別ビルド
-npm run build:win    # Windows
-npm run build:mac    # macOS
-npm run build:linux  # Linux
+# Windows向けビルド
+npm run build:win
+
+# macOS向けビルド
+npm run build:mac
+
+# Linux向けビルド
+npm run build:linux
 ```
 
-### 開発ツール
+### テスト
 
 ```bash
-# コードの静的解析
-npm run lint
-
-# コードの自動修正
-npm run lint:fix
-
-# コードフォーマット
-npm run format
-
 # テスト実行
 npm test
 
@@ -87,77 +87,182 @@ npm test
 npm run test:watch
 ```
 
-## 🔧 設定
-
-### 環境変数
-
-開発環境では以下の環境変数を設定できます：
+### コード品質
 
 ```bash
-NODE_ENV=development  # 開発モード
+# ESLintチェック
+npm run lint
+
+# ESLint自動修正
+npm run lint:fix
+
+# Prettierフォーマット
+npm run format
 ```
 
-### カスタマイズ
+## プロジェクト構造
 
-1. **アプリケーション情報**: `package.json`の`name`、`description`、`author`を更新
-2. **ウィンドウ設定**: `main.js`の`BrowserWindow`オプションを調整
-3. **UI/UX**: `renderer/style.css`でスタイルをカスタマイズ
-4. **API**: `preload.js`でレンダラープロセス向けAPIを追加
-
-## 🛡️ セキュリティ
-
-このプロジェクトは以下のElectronセキュリティベストプラクティスを実装しています：
-
-- ✅ Context Isolation有効化
-- ✅ Node.js Integration無効化
-- ✅ contextBridge使用
-- ✅ セキュアなIPC通信
-- ✅ CSP（Content Security Policy）対応準備
-
-## 🧪 テスト
-
-```bash
-# 全テスト実行
-npm test
-
-# 特定のテストファイル実行
-npm test -- --testPathPattern=main.test.js
-
-# カバレッジ付きテスト実行
-npm test -- --coverage
+```
+sasuke-node-v1.0.0/
+├── main.js                 # メインプロセス
+├── preload.js              # プリロードスクリプト
+├── renderer/               # レンダラープロセス
+│   ├── index.html          # メインHTML
+│   ├── css/                # スタイルシート
+│   ├── js/                 # JavaScript
+│   ├── libs/               # ライブラリ
+│   ├── images/             # 画像ファイル
+│   └── fonts/              # フォントファイル
+├── tests/                  # テストファイル
+├── package.json            # プロジェクト設定
+├── .eslintrc.js           # ESLint設定
+├── .prettierrc            # Prettier設定
+├── jest.config.js         # Jest設定
+└── README.md              # このファイル
 ```
 
-## 📦 配布
+## カスタマイズ
 
-### 署名設定
+### テーマの変更
 
-本番環境では、アプリケーションに署名することを強く推奨します：
+CSSカスタムプロパティを使用してテーマをカスタマイズできます：
 
-```json
-// package.json
-"build": {
-  "mac": {
-    "identity": "Developer ID Application: Your Name"
-  },
-  "win": {
-    "certificateFile": "path/to/certificate.p12",
-    "certificatePassword": "password"
-  }
+```css
+:root {
+  --primary-color: #108dff;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
 }
 ```
 
-### 自動更新
+### フォントの変更
 
-Electron Builderの自動更新機能を使用する場合：
+Google Fontsから任意のフォントを選択して変更できます：
 
-```bash
-npm install electron-updater
+```css
+/* 日本語フォント */
+.font-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* 英語フォント */
+.font-en {
+  font-family: 'Inter Tight', sans-serif;
+}
 ```
 
-## 🤝 コントリビューション
+## API仕様
+
+### メインプロセス API
+
+```javascript
+// ウィンドウ管理
+ipcMain.handle('window-minimize', () => {
+  mainWindow.minimize();
+});
+
+ipcMain.handle('window-maximize', () => {
+  mainWindow.maximize();
+});
+
+ipcMain.handle('window-close', () => {
+  mainWindow.close();
+});
+```
+
+### レンダラープロセス API
+
+```javascript
+// システム情報取得
+const systemInfo = await window.electronAPI.getSystemInfo();
+
+// ファイル操作
+const fileData = await window.electronAPI.readFile(filePath);
+await window.electronAPI.writeFile(filePath, data);
+```
+
+## セキュリティガイドライン
+
+### 1. Content Security Policy
+
+```html
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline';
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src 'self' https://fonts.gstatic.com;
+  img-src 'self' data: https:;
+">
+```
+
+### 2. プリロードスクリプト
+
+```javascript
+// 安全なAPI公開
+contextBridge.exposeInMainWorld('electronAPI', {
+  getSystemInfo: () => ipcRenderer.invoke('get-system-info'),
+  // 必要最小限のAPIのみ公開
+});
+```
+
+### 3. 入力検証
+
+```javascript
+// フォーム入力の検証
+function validateInput(input) {
+  // XSS対策
+  const sanitized = DOMPurify.sanitize(input);
+  // 長さ制限
+  if (sanitized.length > 1000) {
+    throw new Error('入力が長すぎます');
+  }
+  return sanitized;
+}
+```
+
+## トラブルシューティング
+
+### よくある問題
+
+#### 1. アプリケーションが起動しない
+
+```bash
+# Node.jsバージョンの確認
+node --version
+
+# 依存関係の再インストール
+rm -rf node_modules package-lock.json
+npm install
+```
+
+#### 2. ビルドエラー
+
+```bash
+# キャッシュのクリア
+npm run clean
+npm install
+npm run build
+```
+
+#### 3. フォントが表示されない
+
+Google Fontsの読み込みを確認してください：
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@100..900&family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+```
+
+## 貢献
+
+プロジェクトへの貢献を歓迎します！
+
+### 貢献の手順
 
 1. このリポジトリをフォーク
-2. フィーチャーブランチを作成 (`git checkout -b feature/amazing-feature`)
+2. 機能ブランチを作成 (`git checkout -b feature/amazing-feature`)
 3. 変更をコミット (`git commit -m 'feat: 素晴らしい機能を追加'`)
 4. ブランチにプッシュ (`git push origin feature/amazing-feature`)
 5. プルリクエストを作成
@@ -166,28 +271,35 @@ npm install electron-updater
 
 Conventional Commitsに従ってください：
 
-- `feat:` 新機能
-- `fix:` バグ修正
-- `docs:` ドキュメント更新
-- `style:` コードスタイル修正
-- `refactor:` リファクタリング
-- `test:` テスト追加・修正
-- `chore:` その他の変更
+```
+feat: 新機能を追加
+fix: バグを修正
+docs: ドキュメントを更新
+style: コードスタイルを修正
+refactor: コードをリファクタリング
+test: テストを追加・修正
+chore: その他の変更
+```
 
-## 📄 ライセンス
+## ライセンス
 
 このプロジェクトはMITライセンスの下で公開されています。詳細は[LICENSE](LICENSE)ファイルを参照してください。
 
-## 🔗 関連リンク
+## サポート
 
-- [Electron公式ドキュメント](https://www.electronjs.org/docs)
-- [Electron Security](https://www.electronjs.org/docs/tutorial/security)
-- [Electron Builder](https://www.electron.build/)
+- **Issue**: [GitHub Issues](https://github.com/sasuke/sasuke-node-v1.0.0/issues)
+- **Email**: sasuke@example.com
+- **ドキュメント**: [Wiki](https://github.com/sasuke/sasuke-node-v1.0.0/wiki)
 
-## 📞 サポート
+## 更新履歴
 
-問題や質問がある場合は、[Issues](https://github.com/yourusername/electron-development-base/issues)で報告してください。
+### v1.0.0 (2024-12-19)
+- 初回リリース
+- Handoテンプレートからの移行完了
+- 日本語化対応
+- セキュリティ機能の実装
+- Electron統合
 
 ---
 
-⭐ このプロジェクトが役に立った場合は、スターを付けていただけると嬉しいです！ 
+**Sasuke Node v1.0.0** - セキュアで美しいElectronアプリケーション開発のスタートライン 

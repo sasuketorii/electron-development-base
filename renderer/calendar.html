@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <title>カレンダー | Sasuke - レスポンシブ管理ダッシュボードテンプレート</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CRM、CMS等の構築に使用できる完全機能搭載の管理テーマ"/>
+    <meta name="author" content="Sasuke"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- セキュリティポリシー -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self';
+    ">
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Noto+Sans+JP:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
+    <!-- App css -->
+    <link href="css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
+
+    <!-- Icons -->
+    <link href="css/icons.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- カスタム修正CSS -->
+    <link href="css/custom-fixes.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/head.js"></script>
+    
+    <!-- 国際化システム -->
+    <script src="js/i18n.js"></script>
+
+    <style>
+        /* フォント設定 */
+        :root {
+            --font-jp: 'Noto Sans JP', sans-serif;
+            --font-en: 'Inter Tight', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+        
+        body {
+            font-family: var(--font-jp);
+            font-size: 13px;
+        }
+        
+        .font-en {
+            font-family: var(--font-en);
+        }
+        
+        .font-jp {
+            font-family: var(--font-jp);
+        }
+        
+        .font-mono {
+            font-family: var(--font-mono);
+        }
+        
+        /* 日本語テキストの調整 */
+        .japanese-text {
+            line-height: 1.7;
+            letter-spacing: 0.02em;
+        }
+        
+        /* カレンダー特有のスタイル */
+        .fc-toolbar-title {
+            font-family: var(--font-jp) !important;
+            font-weight: 600;
+        }
+        
+        .fc-button {
+            font-family: var(--font-jp) !important;
+        }
+        
+        .fc-daygrid-day-number {
+            font-family: var(--font-en) !important;
+        }
+        
+        .fc-col-header-cell {
+            font-family: var(--font-jp) !important;
+        }
+        
+        .fc-event-title {
+            font-family: var(--font-jp) !important;
+        }
+        
+        /* カスタムイベントスタイル */
+        .fc-event-main {
+            padding: 2px 4px;
+        }
+        
+        .event-work {
+            background-color: #3b82f6 !important;
+            border-color: #3b82f6 !important;
+        }
+        
+        .event-personal {
+            background-color: #10b981 !important;
+            border-color: #10b981 !important;
+        }
+        
+        .event-meeting {
+            background-color: #f59e0b !important;
+            border-color: #f59e0b !important;
+        }
+        
+        .event-holiday {
+            background-color: #ef4444 !important;
+            border-color: #ef4444 !important;
+        }
+        
+        /* カレンダーコントロール */
+        .calendar-controls {
+            margin-bottom: 1rem;
+        }
+        
+        .event-legend {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+
+<body data-menu-color="light" data-sidebar="default">
+
+<div id="app-layout">
+
+    <!-- ========== トップバー開始 ========== -->
+    <div class="navbar-custom">
+        <div class="topbar">
+            <div class="topbar-menu d-flex align-items-center gap-1">
+
+                <!-- トップバーブランドロゴ -->
+                <div class="logo-box">
+                    <!-- ブランドロゴライト -->
+                    <a href="index.html" class="logo-light">
+                        <img src="images/logo-light.png" alt="ロゴ" class="logo-lg">
+                        <img src="images/logo-sm.png" alt="小ロゴ" class="logo-sm">
+                    </a>
+
+                    <!-- ブランドロゴダーク -->
+                    <a href="index.html" class="logo-dark">
+                        <img src="images/logo-dark.png" alt="ダークロゴ" class="logo-lg">
+                        <img src="images/logo-sm.png" alt="小ロゴ" class="logo-sm">
+                    </a>
+                </div>
+
+                <!-- サイドバーメニュートグルボタン -->
+                <button class="button-toggle-menu">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+
+                <!-- 横メニュートグルボタン -->
+                <button class="navbar-toggle" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                    <div class="lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+
+                <!-- トップバー検索フォーム -->
+                <div class="app-search d-none d-lg-block">
+                    <form>
+                        <div class="input-group">
+                            <input type="search" class="form-control" placeholder="イベント検索..." id="top-search">
+                            <span class="mdi mdi-magnify search-icon"></span>
+                            <button class="input-group-text btn btn-primary" type="submit">検索</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <ul class="topbar-menu d-flex align-items-center">
+                <!-- トップバー検索モバイル -->
+                <li class="dropdown d-lg-none">
+                    <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <i class="mdi mdi-magnify fs-20"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
+                        <form class="p-3">
+                            <input type="search" class="form-control" placeholder="イベント検索..." aria-label="検索キーワード">
+                        </form>
+                    </div>
+                </li>
+
+                <!-- フルスクリーンボタン -->
+                <li class="d-none d-md-inline-block">
+                    <a class="nav-link" href="#" data-toggle="fullscreen">
+                        <i class="mdi mdi-fullscreen fs-20"></i>
+                    </a>
+                </li>
+
+                <!-- 通知 -->
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <i class="mdi mdi-bell fs-20"></i>
+                        <span class="noti-icon-badge"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg py-0">
+                        <div class="p-2 border-top-0 border-start-0 border-end-0 border-dashed border">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="m-0 fs-16 fw-semibold">通知</h6>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="javascript: void(0);" class="text-dark text-decoration-underline">
+                                        <small>すべてクリア</small>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="px-1" style="max-height: 300px;" data-simplebar>
+                            <h5 class="text-muted font-13 fw-normal mt-2">今日</h5>
+                            <!-- アイテム -->
+                            <a href="javascript:void(0);" class="dropdown-item p-0 notify-item card unread-noti shadow-none mb-1">
+                                <div class="card-body">
+                                    <span class="float-end noti-close-btn text-muted"><i class="mdi mdi-close"></i></span>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <div class="notify-icon bg-primary">
+                                                <i class="mdi mdi-calendar"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 text-truncate ms-2">
+                                            <h5 class="noti-item-title fw-semibold fs-14">会議リマインダー <small class="fw-normal text-muted ms-1">10分前</small></h5>
+                                            <small class="noti-item-subtitle text-muted">プロジェクト会議が開始されます</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item border-top py-2">
+                            すべて表示
+                        </a>
+                    </div>
+                </li>
+
+                <!-- ユーザードロップダウン -->
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle nav-user me-0" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <img src="images/users/user-11.jpg" alt="ユーザー画像" class="rounded-circle">
+                        <span class="pro-user-name ms-1">
+                            佐助 <i class="mdi mdi-chevron-down"></i>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end profile-dropdown">
+                        <!-- アイテム -->
+                        <div class="dropdown-header noti-title">
+                            <h6 class="text-overflow m-0">ようこそ！</h6>
+                        </div>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-account-circle me-1"></i>
+                            <span>マイアカウント</span>
+                        </a>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-cog-outline me-1"></i>
+                            <span>設定</span>
+                        </a>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-lifebuoy me-1"></i>
+                            <span>サポート</span>
+                        </a>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-lock-outline me-1"></i>
+                            <span>画面ロック</span>
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-logout me-1"></i>
+                            <span>ログアウト</span>
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!-- ========== トップバー終了 ========== -->
+
+    <!-- ========== 左サイドバー開始 ========== -->
+    <div class="app-sidebar-menu">
+        <div class="h-100" data-simplebar>
+
+            <!--- サイドメニュー -->
+            <div id="sidebar-menu">
+
+                <div class="logo-box">
+                    <a href="index.html" class="logo logo-light">
+                        <span class="logo-sm">
+                            <img src="images/logo-sm.png" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="images/logo-light.png" alt="" height="24">
+                        </span>
+                    </a>
+                    <a href="index.html" class="logo logo-dark">
+                        <span class="logo-sm">
+                            <img src="images/logo-sm.png" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="images/logo-dark.png" alt="" height="24">
+                        </span>
+                    </a>
+                </div>
+
+                <ul id="side-menu">
+
+                    <li class="menu-title">ナビゲーション</li>
+
+                    <li>
+                        <a href="#sidebarDashboards" data-bs-toggle="collapse">
+                            <i class="mdi mdi-view-dashboard-outline"></i>
+                            <span>ダッシュボード</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarDashboards">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="index.html">CRM</a>
+                                </li>
+                                <li>
+                                    <a href="analytics.html">アナリティクス</a>
+                                </li>
+                                <li>
+                                    <a href="ecommerce.html">Eコマース</a>
+                                </li>
+                                <li>
+                                    <a href="projects.html">プロジェクト</a>
+                                </li>
+                                <li>
+                                    <a href="hrm.html">人事管理</a>
+                                </li>
+                                <li>
+                                    <a href="jobs.html">求人</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-title">アプリケーション</li>
+
+                    <li>
+                        <a href="calendar.html" class="active">
+                            <i class="mdi mdi-calendar-blank-outline"></i>
+                            <span>カレンダー</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="todolist.html">
+                            <i class="mdi mdi-format-list-checkbox"></i>
+                            <span>TODOリスト</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarProjects" data-bs-toggle="collapse">
+                            <i class="mdi mdi-briefcase-variant-outline"></i>
+                            <span>プロジェクト</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarProjects">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="projects.html">一覧</a>
+                                </li>
+                                <li>
+                                    <a href="projects-detail.html">詳細</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarContacts" data-bs-toggle="collapse">
+                            <i class="mdi mdi-account-multiple-outline"></i>
+                            <span>連絡先</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarContacts">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="contacts.html">メンバー</a>
+                                </li>
+                                <li>
+                                    <a href="contacts-profile.html">プロフィール</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-title">カスタム</li>
+
+                    <li>
+                        <a href="#sidebarAuth" data-bs-toggle="collapse">
+                            <i class="mdi mdi-account-circle-outline"></i>
+                            <span>認証ページ</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarAuth">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="auth-login.html">ログイン</a>
+                                </li>
+                                <li>
+                                    <a href="auth-register.html">登録</a>
+                                </li>
+                                <li>
+                                    <a href="auth-recoverpw.html">パスワード復旧</a>
+                                </li>
+                                <li>
+                                    <a href="auth-lock-screen.html">画面ロック</a>
+                                </li>
+                                <li>
+                                    <a href="auth-logout.html">ログアウト</a>
+                                </li>
+                                <li>
+                                    <a href="auth-confirm-mail.html">メール確認</a>
+                                </li>
+                                <li>
+                                    <a href="email-verification.html">メール認証</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarPages" data-bs-toggle="collapse">
+                            <i class="mdi mdi-text-box-multiple-outline"></i>
+                            <span>ページ</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarPages">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="pages-starter.html">スターター</a>
+                                </li>
+                                <li>
+                                    <a href="pages-profile.html">プロフィール</a>
+                                </li>
+                                <li>
+                                    <a href="pages-timeline.html">タイムライン</a>
+                                </li>
+                                <li>
+                                    <a href="pages-invoice.html">請求書</a>
+                                </li>
+                                <li>
+                                    <a href="pages-faqs.html">よくある質問</a>
+                                </li>
+                                <li>
+                                    <a href="pages-pricing.html">料金</a>
+                                </li>
+                                <li>
+                                    <a href="pages-maintenance.html">メンテナンス</a>
+                                </li>
+                                <li>
+                                    <a href="pages-coming-soon.html">近日公開</a>
+                                </li>
+                                <li>
+                                    <a href="pages-gallery.html">ギャラリー</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-title">UI要素</li>
+
+                    <li>
+                        <a href="#sidebarUI" data-bs-toggle="collapse">
+                            <i class="mdi mdi-palette-outline"></i>
+                            <span>UI要素</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarUI">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="ui-buttons.html">ボタン</a>
+                                </li>
+                                <li>
+                                    <a href="ui-cards.html">カード</a>
+                                </li>
+                                <li>
+                                    <a href="ui-modals.html">モーダル</a>
+                                </li>
+                                <li>
+                                    <a href="ui-tabs.html">タブ</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarForms" data-bs-toggle="collapse">
+                            <i class="mdi mdi-form-select"></i>
+                            <span>フォーム</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarForms">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="forms-elements.html">フォーム要素</a>
+                                </li>
+                                <li>
+                                    <a href="forms-validation.html">バリデーション</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarTables" data-bs-toggle="collapse">
+                            <i class="mdi mdi-table"></i>
+                            <span>テーブル</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarTables">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="tables-basic.html">基本テーブル</a>
+                                </li>
+                                <li>
+                                    <a href="tables-datatables.html">データテーブル</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarCharts" data-bs-toggle="collapse">
+                            <i class="mdi mdi-chart-line"></i>
+                            <span>チャート</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarCharts">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="charts-area.html">エリアチャート</a>
+                                </li>
+                                <li>
+                                    <a href="charts-bar.html">バーチャート</a>
+                                </li>
+                                <li>
+                                    <a href="charts-line.html">ラインチャート</a>
+                                </li>
+                                <li>
+                                    <a href="charts-pie.html">パイチャート</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </div>
+            <!-- サイドバー終了 -->
+
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+    <!-- ========== 左サイドバー終了 ========== -->
+
+    <!-- ============================================================== -->
+    <!-- ページコンテンツ開始 -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+
+        <div class="content">
+
+            <!-- コンテンツ開始 -->
+            <div class="container-fluid">
+                
+                <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
+                    <div class="flex-grow-1">
+                        <h4 class="fs-18 fw-semibold m-0 japanese-text">カレンダー</h4>
+                        <p class="text-muted mb-0 japanese-text">スケジュール管理とイベント追跡</p>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventModal">
+                            <i class="mdi mdi-plus me-1"></i>イベント追加
+                        </button>
+                    </div>
+                </div>
+
+                <!-- カレンダーコントロール -->
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-primary me-2" id="prevMonth">
+                                            <i class="mdi mdi-chevron-left"></i>
+                                        </button>
+                                        <h5 class="mb-0 me-2 japanese-text" id="currentMonth">2024年5月</h5>
+                                        <button class="btn btn-outline-primary" id="nextMonth">
+                                            <i class="mdi mdi-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-secondary me-2" id="todayBtn">今日</button>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-outline-secondary active" id="monthView">月</button>
+                                            <button type="button" class="btn btn-outline-secondary" id="weekView">週</button>
+                                            <button type="button" class="btn btn-outline-secondary" id="dayView">日</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- カレンダー本体 -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <!-- カレンダーヘッダー -->
+                                <div class="calendar-header">
+                                    <div class="calendar-header-day japanese-text">日</div>
+                                    <div class="calendar-header-day japanese-text">月</div>
+                                    <div class="calendar-header-day japanese-text">火</div>
+                                    <div class="calendar-header-day japanese-text">水</div>
+                                    <div class="calendar-header-day japanese-text">木</div>
+                                    <div class="calendar-header-day japanese-text">金</div>
+                                    <div class="calendar-header-day japanese-text">土</div>
+                                </div>
+                                
+                                <!-- カレンダーグリッド -->
+                                <div class="calendar-grid" id="calendarGrid">
+                                    <!-- 動的に生成される -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 今日の予定 -->
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0 japanese-text">今日の予定</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-primary rounded-circle p-2 me-3">
+                                        <i class="mdi mdi-account-group text-white"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 japanese-text">チーム会議</h6>
+                                        <p class="text-muted mb-0 number">10:00 - 11:30</p>
+                                    </div>
+                                    <span class="badge bg-primary">進行中</span>
+                                </div>
+
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-success rounded-circle p-2 me-3">
+                                        <i class="mdi mdi-file-document text-white"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 japanese-text">プロジェクトレビュー</h6>
+                                        <p class="text-muted mb-0 number">14:00 - 15:00</p>
+                                    </div>
+                                    <span class="badge bg-success">予定</span>
+                                </div>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-warning rounded-circle p-2 me-3">
+                                        <i class="mdi mdi-phone text-white"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 japanese-text">クライアント電話</h6>
+                                        <p class="text-muted mb-0 number">16:30 - 17:00</p>
+                                    </div>
+                                    <span class="badge bg-warning">予定</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0 japanese-text">今週の統計</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <h3 class="text-primary number">12</h3>
+                                            <p class="text-muted mb-0 japanese-text">総イベント数</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <h3 class="text-success number">8</h3>
+                                            <p class="text-muted mb-0 japanese-text">完了済み</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <h3 class="text-warning number">3</h3>
+                                            <p class="text-muted mb-0 japanese-text">進行中</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <h3 class="text-info number">1</h3>
+                                            <p class="text-muted mb-0 japanese-text">延期</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- コンテナ終了 -->
+
+        </div>
+        <!-- コンテンツ終了 -->
+
+        <!-- フッター開始 -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <script>document.write(new Date().getFullYear())</script> © Sasuke - <i class="mdi mdi-heart text-danger"></i> で作成 by <b>Sasuke</b>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-md-end footer-links d-none d-md-block">
+                            <a href="javascript: void(0);" class="japanese-text">概要</a>
+                            <a href="javascript: void(0);" class="japanese-text">サポート</a>
+                            <a href="javascript: void(0);" class="japanese-text">お問い合わせ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- フッター終了 -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- ページコンテンツ終了 -->
+    <!-- ============================================================== -->
+
+</div>
+
+<!-- イベント追加モーダル -->
+<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title japanese-text" id="eventModalLabel">新しいイベント</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="eventTitle" class="form-label japanese-text">イベントタイトル</label>
+                        <input type="text" class="form-control" id="eventTitle" placeholder="イベント名を入力">
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventDate" class="form-label japanese-text">日付</label>
+                        <input type="date" class="form-control" id="eventDate">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="eventStartTime" class="form-label japanese-text">開始時間</label>
+                                <input type="time" class="form-control" id="eventStartTime">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="eventEndTime" class="form-label japanese-text">終了時間</label>
+                                <input type="time" class="form-control" id="eventEndTime">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventDescription" class="form-label japanese-text">説明</label>
+                        <textarea class="form-control" id="eventDescription" rows="3" placeholder="イベントの詳細を入力"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="eventColor" class="form-label japanese-text">カラー</label>
+                        <select class="form-select" id="eventColor">
+                            <option value="primary">青</option>
+                            <option value="success">緑</option>
+                            <option value="warning">黄</option>
+                            <option value="danger">赤</option>
+                            <option value="info">水色</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ベンダー -->
+<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="libs/simplebar/simplebar.min.js"></script>
+<script src="libs/node-waves/waves.min.js"></script>
+<script src="libs/waypoints/lib/jquery.waypoints.min.js"></script>
+<script src="libs/jquery.counterup/jquery.counterup.min.js"></script>
+<script src="libs/feather-icons/feather.min.js"></script>
+
+<!-- App js -->
+<script src="js/app.js"></script>
+
+<script>
+// カレンダー機能
+document.addEventListener('DOMContentLoaded', function() {
+    const currentDate = new Date();
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
+    
+    const monthNames = [
+        '1月', '2月', '3月', '4月', '5月', '6月',
+        '7月', '8月', '9月', '10月', '11月', '12月'
+    ];
+    
+    // サンプルイベント
+    const events = {
+        '2024-05-26': [
+            { title: 'チーム会議', type: 'primary' },
+            { title: 'プロジェクトレビュー', type: 'success' }
+        ],
+        '2024-05-27': [
+            { title: 'クライアント電話', type: 'warning' }
+        ],
+        '2024-05-28': [
+            { title: '締切日', type: 'danger' }
+        ]
+    };
+    
+    function generateCalendar(month, year) {
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const daysInPrevMonth = new Date(year, month, 0).getDate();
+        
+        const calendarGrid = document.getElementById('calendarGrid');
+        const currentMonthElement = document.getElementById('currentMonth');
+        
+        currentMonthElement.textContent = `${year}年${monthNames[month]}`;
+        calendarGrid.innerHTML = '';
+        
+        // 前月の日付
+        for (let i = firstDay - 1; i >= 0; i--) {
+            const day = daysInPrevMonth - i;
+            const dayElement = createDayElement(day, true);
+            calendarGrid.appendChild(dayElement);
+        }
+        
+        // 今月の日付
+        for (let day = 1; day <= daysInMonth; day++) {
+            const isToday = (year === currentDate.getFullYear() && 
+                           month === currentDate.getMonth() && 
+                           day === currentDate.getDate());
+            const dayElement = createDayElement(day, false, isToday);
+            
+            // イベントを追加
+            const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            if (events[dateKey]) {
+                events[dateKey].forEach(event => {
+                    const eventElement = document.createElement('div');
+                    eventElement.className = `calendar-event event-${event.type}`;
+                    eventElement.textContent = event.title;
+                    dayElement.appendChild(eventElement);
+                });
+            }
+            
+            calendarGrid.appendChild(dayElement);
+        }
+        
+        // 次月の日付
+        const totalCells = calendarGrid.children.length;
+        const remainingCells = 42 - totalCells; // 6週間 × 7日
+        for (let day = 1; day <= remainingCells; day++) {
+            const dayElement = createDayElement(day, true);
+            calendarGrid.appendChild(dayElement);
+        }
+    }
+    
+    function createDayElement(day, isOtherMonth = false, isToday = false) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+        if (isOtherMonth) dayElement.classList.add('other-month');
+        if (isToday) dayElement.classList.add('today');
+        
+        const dayNumber = document.createElement('div');
+        dayNumber.textContent = day;
+        dayNumber.style.fontWeight = '600';
+        dayNumber.style.marginBottom = '4px';
+        dayElement.appendChild(dayNumber);
+        
+        return dayElement;
+    }
+    
+    // イベントリスナー
+    document.getElementById('prevMonth').addEventListener('click', function() {
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        generateCalendar(currentMonth, currentYear);
+    });
+    
+    document.getElementById('nextMonth').addEventListener('click', function() {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        generateCalendar(currentMonth, currentYear);
+    });
+    
+    document.getElementById('todayBtn').addEventListener('click', function() {
+        currentMonth = currentDate.getMonth();
+        currentYear = currentDate.getFullYear();
+        generateCalendar(currentMonth, currentYear);
+    });
+    
+    // 初期カレンダー生成
+    generateCalendar(currentMonth, currentYear);
+    
+    // フェザーアイコンの初期化
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
+    
+    console.log('カレンダーが正常に初期化されました');
+});
+</script>
+
+</body>
+</html> 

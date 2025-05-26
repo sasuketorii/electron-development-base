@@ -1,0 +1,160 @@
+/* Sasuke カスタム修正 */
+
+/* プライマリーボタンのカスタマイズ - 水色テーマ */
+.btn-primary {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+  color: #ffffff !important;
+  box-shadow: none !important; /* シャドウを削除 */
+}
+
+.btn-primary:hover {
+  background-color: #0056b3 !important;
+  border-color: #0056b3 !important;
+  color: #ffffff !important;
+  box-shadow: none !important; /* シャドウを削除 */
+}
+
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:not(:disabled):not(.disabled):active {
+  background-color: #0056b3 !important;
+  border-color: #0056b3 !important;
+  color: #ffffff !important;
+  box-shadow: none !important; /* シャドウを削除 */
+}
+
+/* 日本語フォント設定の強化 */
+.japanese-text,
+.btn.japanese-text,
+.form-label.japanese-text,
+.card-title.japanese-text,
+.nav-link.japanese-text {
+  font-family: 'Noto Sans JP', sans-serif !important;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
+
+/* 数字表示用のクラス */
+.number,
+.font-en {
+  font-family: 'Inter Tight', sans-serif !important;
+}
+
+/* コード表示用のクラス */
+.font-mono,
+.code {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* カレンダー特有のスタイル修正 */
+.calendar-day {
+  min-height: 100px;
+  border: 1px solid #e9ecef;
+  padding: 8px;
+  position: relative;
+  background: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.calendar-day:hover {
+  background-color: #f8f9fa;
+}
+
+.calendar-day.today {
+  background-color: #e3f2fd;
+  border-color: #2196f3;
+}
+
+.calendar-day.other-month {
+  color: #6c757d;
+  background-color: #f8f9fa;
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.calendar-header-day {
+  padding: 12px 8px;
+  text-align: center;
+  font-weight: 600;
+  color: #495057;
+  border-right: 1px solid #dee2e6;
+}
+
+.calendar-header-day:last-child {
+  border-right: none;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+}
+
+.calendar-event {
+  font-size: 0.75rem;
+  padding: 2px 4px;
+  margin: 1px 0;
+  border-radius: 3px;
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ボタンのフォント設定 */
+.btn {
+  font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+/* フォーム要素のフォント設定 */
+.form-control,
+.form-select,
+.form-check-label {
+  font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+/* ナビゲーションのフォント設定 */
+.navbar,
+.nav,
+.sidebar-menu {
+  font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+/* テーブルのフォント設定 */
+.table {
+  font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+/* カードのフォント設定 */
+.card {
+  font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+/* アラートのフォント設定 */
+.alert {
+  font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+/* モーダルのフォント設定 */
+.modal {
+  font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+/* アクティブなメニューアイテムのスタイル */
+.nav-second-level a.active {
+  color: #007bff !important;
+  font-weight: 600;
+}
+
+/* サイドバーのアクティブアイテム */
+#side-menu .active {
+  color: #007bff !important;
+} 

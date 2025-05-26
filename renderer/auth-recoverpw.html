@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <title>パスワード復旧 | Sasuke - レスポンシブ管理ダッシュボードテンプレート</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CRM、CMS等の構築に使用できる完全機能搭載の管理テーマ"/>
+    <meta name="author" content="Sasuke"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- セキュリティポリシー -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self';
+    ">
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Noto+Sans+JP:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
+    <!-- App css -->
+    <link href="css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
+
+    <!-- Icons -->
+    <link href="css/icons.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- カスタム修正CSS -->
+    <link href="css/custom-fixes.css" rel="stylesheet" type="text/css" />
+    
+    <!-- 国際化システム -->
+    <script src="js/i18n.js"></script>
+
+    <style>
+        /* フォント設定 */
+        :root {
+            --font-jp: 'Noto Sans JP', sans-serif;
+            --font-en: 'Inter Tight', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+        
+        body {
+            font-family: var(--font-jp);
+            font-size: 13px;
+        }
+        
+        .font-en {
+            font-family: var(--font-en);
+        }
+        
+        .font-jp {
+            font-family: var(--font-jp);
+        }
+        
+        .font-mono {
+            font-family: var(--font-mono);
+        }
+        
+        /* 日本語テキストの調整 */
+        .japanese-text {
+            line-height: 1.7;
+            letter-spacing: 0.02em;
+        }
+        
+        /* 認証ページ特有のスタイル */
+        .account-page-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .auth-user-review {
+            padding: 2rem;
+        }
+        
+        .prelead {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* 成功メッセージ */
+        .success-message {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body data-menu-color="light" data-sidebar="default">
+
+<div class="account-page">
+    <div class="container-fluid p-0">
+        <div class="row align-items-center g-0 px-3 py-3 vh-100">
+
+            <div class="col-xl-5">
+                <div class="row">
+                    <div class="col-md-8 mx-auto">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-0 p-0 p-lg-3">
+
+                                    <div class="mb-0 border-0 p-md-4 p-lg-0">
+                                        <div class="mb-4 p-0">
+                                            <div class="auth-brand">
+                                                <a href="index.html" class="logo logo-light">
+                                                    <span class="logo-lg">
+                                                        <img src="images/logo-light.png" alt="ロゴ" height="24">
+                                                    </span>
+                                                </a>
+                                                <a href="index.html" class="logo logo-dark">
+                                                    <span class="logo-lg">
+                                                        <img src="images/logo-dark.png" alt="ダークロゴ" height="24">
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="auth-title-section mb-4 text-lg-start text-center"> 
+                                            <h3 class="text-dark fw-semibold mb-3 japanese-text">パスワードをリセット！</h3>
+                                            <p class="text-muted fs-14 mb-0 japanese-text">登録されたメールアドレスを入力してください。パスワードリセット用のリンクをお送りします。</p>
+                                        </div>
+                                        
+                                        <div class="success-message" id="success-message">
+                                            <div class="d-flex align-items-center">
+                                                <i class="mdi mdi-check-circle me-2 fs-18"></i>
+                                                <span class="japanese-text">パスワードリセット用のメールを送信しました。メールボックスをご確認ください。</span>
+                                            </div>
+                                        </div>
+        
+                                        <div class="pt-0">
+                                            <form action="#" class="my-4" id="recover-form">
+                                                <div class="form-group mb-3">
+                                                    <label for="emailaddress" class="form-label japanese-text">メールアドレス</label>
+                                                    <input class="form-control" type="email" id="emailaddress" required placeholder="メールアドレスを入力してください">
+                                                    <div class="invalid-feedback"></div>
+                                                </div>
+                                                
+                                                <div id="error" class="text-danger mb-2"></div>
+                                                
+                                                <div class="form-group mb-0 row">
+                                                    <div class="col-12">
+                                                        <div class="d-grid">
+                                                            <button class="btn btn-primary japanese-text" type="submit" id="recover-btn">
+                                                                <span class="btn-text">パスワードを復旧</span>
+                                                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div class="text-center text-muted">
+                                                <p class="mb-0 japanese-text">思い出しましたか？<a class='text-primary ms-2 fw-medium' href='auth-login.html'>ログインに戻る</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-7 d-none d-xl-inline-block">
+                <div class="account-page-bg rounded-4">
+                    <div class="auth-user-review text-center">
+                        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+
+                                <div class="carousel-item active">
+                                    <p class="prelead mb-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#ffffff" d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621c.537-.278 1.24-.375 1.929-.311c1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5a3.87 3.87 0 0 1-2.748-1.179m10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621c.537-.278 1.24-.375 1.929-.311c1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5a3.87 3.87 0 0 1-2.748-1.179"/></svg> 
+                                        Sasukeを使用すると、サポートプロセスは製品と同じくらい楽しいものになります。これほど簡単であれば、顧客は何度でも戻ってきます。
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#ffffff" d="M19.417 6.679C20.447 7.773 21 9 21 10.989c0 3.5-2.456 6.637-6.03 8.188l-.893-1.378c3.335-1.804 3.987-4.145 4.248-5.621c-.537.278-1.24.375-1.93.311c-1.804-.167-3.226-1.648-3.226-3.489a3.5 3.5 0 0 1 3.5-3.5c1.073 0 2.1.49 2.748 1.179m-10 0C10.447 7.773 11 9 11 10.989c0 3.5-2.456 6.637-6.03 8.188l-.893-1.378c3.335-1.804 3.987-4.145 4.247-5.621c-.537.278-1.24.375-1.929.311C4.591 12.323 3.17 10.842 3.17 9a3.5 3.5 0 0 1 3.5-3.5c1.073 0 2.1.49 2.748 1.179"/></svg>
+                                    </p>
+                                    <h4 class="mb-1">田中 花子</h4>
+                                    <p class="mb-0">ソフトウェア開発者</p>
+                                </div>
+
+                                <div class="carousel-item">
+                                    <p class="prelead mb-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#ffffff" d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621c.537-.278 1.24-.375 1.929-.311c1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5a3.87 3.87 0 0 1-2.748-1.179m10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621c.537-.278 1.24-.375 1.929-.311c1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5a3.87 3.87 0 0 1-2.748-1.179"/></svg> 
+                                        とても素晴らしいテーマです。皆さんがこれにもっと機能を追加してくれることを期待しています。良い仕事を続けてください。
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#ffffff" d="M19.417 6.679C20.447 7.773 21 9 21 10.989c0 3.5-2.456 6.637-6.03 8.188l-.893-1.378c3.335-1.804 3.987-4.145 4.248-5.621c-.537.278-1.24.375-1.93.311c-1.804-.167-3.226-1.648-3.226-3.489a3.5 3.5 0 0 1 3.5-3.5c1.073 0 2.1.49 2.748 1.179m-10 0C10.447 7.773 11 9 11 10.989c0 3.5-2.456 6.637-6.03 8.188l-.893-1.378c3.335-1.804 3.987-4.145 4.247-5.621c-.537.278-1.24.375-1.929.311C4.591 12.323 3.17 10.842 3.17 9a3.5 3.5 0 0 1 3.5-3.5c1.073 0 2.1.49 2.748 1.179"/></svg>
+                                    </p>
+                                    <h4 class="mb-1">佐藤 美咲</h4>
+                                    <p class="mb-0">リードデザイナー</p>
+                                </div>
+
+                                <div class="carousel-item">
+                                    <p class="prelead mb-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#ffffff" d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621c.537-.278 1.24-.375 1.929-.311c1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5a3.87 3.87 0 0 1-2.748-1.179m10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621c.537-.278 1.24-.375 1.929-.311c1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 0 1-3.5 3.5a3.87 3.87 0 0 1-2.748-1.179"/></svg> 
+                                        これは素晴らしい製品で、私たちを大いに助けてくれました。作業と実装が非常に迅速です。
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#ffffff" d="M19.417 6.679C20.447 7.773 21 9 21 10.989c0 3.5-2.456 6.637-6.03 8.188l-.893-1.378c3.335-1.804 3.987-4.145 4.248-5.621c-.537.278-1.24.375-1.93.311c-1.804-.167-3.226-1.648-3.226-3.489a3.5 3.5 0 0 1 3.5-3.5c1.073 0 2.1.49 2.748 1.179m-10 0C10.447 7.773 11 9 11 10.989c0 3.5-2.456 6.637-6.03 8.188l-.893-1.378c3.335-1.804 3.987-4.145 4.247-5.621c-.537.278-1.24.375-1.929.311C4.591 12.323 3.17 10.842 3.17 9a3.5 3.5 0 0 1 3.5-3.5c1.073 0 2.1.49 2.748 1.179"/></svg>
+                                    </p>
+                                    <h4 class="mb-1">鈴木 太郎</h4>
+                                    <p class="mb-0">プロダクトデザイナー</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ベンダー -->
+<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="libs/simplebar/simplebar.min.js"></script>
+<script src="libs/node-waves/waves.min.js"></script>
+<script src="libs/waypoints/lib/jquery.waypoints.min.js"></script>
+<script src="libs/jquery.counterup/jquery.counterup.min.js"></script>
+<script src="libs/feather-icons/feather.min.js"></script>
+
+<!-- App js -->
+<script src="js/app.js"></script>
+
+<script>
+// パスワード復旧機能
+document.addEventListener('DOMContentLoaded', function() {
+    const recoverForm = document.getElementById('recover-form');
+    const errorDiv = document.getElementById('error');
+    const successMessage = document.getElementById('success-message');
+    const recoverBtn = document.getElementById('recover-btn');
+    const btnText = recoverBtn.querySelector('.btn-text');
+    const spinner = recoverBtn.querySelector('.spinner-border');
+    
+    if (recoverForm) {
+        recoverForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('emailaddress').value;
+            
+            // バリデーション
+            errorDiv.textContent = '';
+            successMessage.classList.remove('show');
+            
+            if (!email) {
+                errorDiv.textContent = '※メールアドレスを入力してください';
+                return;
+            }
+            
+            // メール形式チェック
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorDiv.textContent = '※有効なメールアドレスを入力してください';
+                return;
+            }
+            
+            // ローディング状態
+            recoverBtn.disabled = true;
+            btnText.textContent = '送信中...';
+            spinner.classList.remove('d-none');
+            
+            // 模擬的な送信処理（実際のアプリでは適切なAPI呼び出しを実装）
+            setTimeout(() => {
+                // 成功状態
+                recoverBtn.disabled = false;
+                btnText.textContent = 'パスワードを復旧';
+                spinner.classList.add('d-none');
+                
+                // 成功メッセージ表示
+                successMessage.classList.add('show');
+                
+                // フォームをリセット
+                recoverForm.reset();
+                
+                // 3秒後にログインページに戻るオプション
+                setTimeout(() => {
+                    const goToLogin = confirm('ログインページに戻りますか？');
+                    if (goToLogin) {
+                        window.location.href = 'auth-login.html';
+                    }
+                }, 3000);
+                
+            }, 2000); // 2秒の模擬遅延
+        });
+    }
+    
+    console.log('パスワード復旧ページが正常に初期化されました');
+});
+</script>
+
+</body>
+</html> 

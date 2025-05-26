@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <title>人事管理 | Sasuke - レスポンシブ管理ダッシュボードテンプレート</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CRM、CMS等の構築に使用できる完全機能搭載の管理テーマ"/>
+    <meta name="author" content="Sasuke"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- セキュリティポリシー -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self';
+    ">
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Noto+Sans+JP:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
+    <!-- App css -->
+    <link href="css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
+
+    <!-- Icons -->
+    <link href="css/icons.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/head.js"></script>
+
+    <style>
+        /* フォント設定 - サイズを1レベル下げる */
+        :root {
+            --font-jp: 'Noto Sans JP', sans-serif;
+            --font-en: 'Inter Tight', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+        
+        body {
+            font-family: var(--font-jp);
+            font-size: 13px; /* 14px → 13px */
+        }
+        
+        .font-en {
+            font-family: var(--font-en);
+        }
+        
+        .font-jp {
+            font-family: var(--font-jp);
+        }
+        
+        .font-mono {
+            font-family: var(--font-mono);
+        }
+        
+        /* フォントサイズ調整 */
+        .fs-22 { font-size: 20px !important; font-family: var(--font-mono); } /* 22px → 20px */
+        .fs-20 { font-size: 18px !important; font-family: var(--font-mono); } /* 20px → 18px */
+        .fs-18 { font-size: 16px !important; } /* 18px → 16px */
+        .fs-16 { font-size: 14px !important; } /* 16px → 14px */
+        .fs-15 { font-size: 13px !important; } /* 15px → 13px */
+        .fs-14 { font-size: 12px !important; } /* 14px → 12px */
+        .fs-13 { font-size: 11px !important; } /* 13px → 11px */
+        .fs-12 { font-size: 10px !important; } /* 12px → 10px */
+        
+        /* 数字用フォント */
+        .number {
+            font-family: var(--font-mono);
+            font-weight: 500;
+        }
+        
+        /* 検索バーの調整 */
+        .app-search {
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+        
+        @media (max-width: 991.98px) {
+            .app-search {
+                margin: 0;
+            }
+        }
+        
+        /* レスポンシブ調整 - はみ出し防止 */
+        .container-fluid {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        .row {
+            margin-left: -7.5px;
+            margin-right: -7.5px;
+        }
+        
+        .col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, 
+        .col-7, .col-8, .col-9, .col-10, .col-11, .col-12,
+        .col-auto, .col-sm, .col-sm-1, .col-sm-2, .col-sm-3, 
+        .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, 
+        .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-auto,
+        .col-md, .col-md-1, .col-md-2, .col-md-3, .col-md-4, 
+        .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, 
+        .col-md-10, .col-md-11, .col-md-12, .col-md-auto,
+        .col-lg, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, 
+        .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, 
+        .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-auto,
+        .col-xl, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, 
+        .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, 
+        .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-auto {
+            padding-left: 7.5px;
+            padding-right: 7.5px;
+        }
+        
+        /* カード内のオーバーフロー防止 */
+        .card {
+            overflow: hidden;
+        }
+        
+        .card-body {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        /* 日本語テキストの調整 */
+        .japanese-text {
+            line-height: 1.6;
+            letter-spacing: 0.02em;
+        }
+        
+        /* 従業員カード専用スタイル */
+        .employee-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            border: 1px solid #e9ecef;
+        }
+        
+        .employee-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .employee-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .employee-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-leave {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-remote {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .department-badge {
+            background-color: #f8f9fa;
+            color: #495057;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+        
+        .attendance-chart {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .salary-info {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 8px;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+        
+        .performance-meter {
+            width: 100%;
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        
+        .performance-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .employee-contact {
+            font-size: 11px;
+            color: #6c757d;
+            margin-top: 8px;
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .quick-actions .btn {
+            padding: 4px 8px;
+            font-size: 10px;
+        }
+    </style>
+</head>
+
+<body data-menu-color="light" data-sidebar="default">
+
+<div id="app-layout">
+
+    <!-- ========== トップバー開始 ========== -->
+    <div class="navbar-custom">
+        <div class="topbar">
+            <div class="topbar-menu d-flex align-items-center gap-1">
+
+                <!-- トップバーブランドロゴ -->
+                <div class="logo-box">
+                    <!-- ブランドロゴライト -->
+                    <a href="index.html" class="logo-light">
+                        <img src="images/logo-light.png" alt="ロゴ" class="logo-lg">
+                        <img src="images/logo-sm.png" alt="小ロゴ" class="logo-sm">
+                    </a>
+
+                    <!-- ブランドロゴダーク -->
+                    <a href="index.html" class="logo-dark">
+                        <img src="images/logo-dark.png" alt="ダークロゴ" class="logo-lg">
+                        <img src="images/logo-sm.png" alt="小ロゴ" class="logo-sm">
+                    </a>
+                </div>
+
+                <!-- サイドバーメニュートグルボタン -->
+                <button class="button-toggle-menu">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+
+                <!-- 横メニュートグルボタン -->
+                <button class="navbar-toggle" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                    <div class="lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+
+                <!-- トップバー検索フォーム -->
+                <div class="app-search d-none d-lg-block">
+                    <form>
+                        <div class="input-group">
+                            <input type="search" class="form-control" placeholder="従業員検索..." id="top-search">
+                            <span class="mdi mdi-magnify search-icon"></span>
+                            <button class="input-group-text btn btn-primary" type="submit">検索</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <ul class="topbar-menu d-flex align-items-center">
+                <!-- トップバー検索モバイル -->
+                <li class="dropdown d-lg-none">
+                    <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <i class="mdi mdi-magnify fs-20"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
+                        <form class="p-3">
+                            <input type="search" class="form-control" placeholder="従業員検索..." aria-label="検索キーワード">
+                        </form>
+                    </div>
+                </li>
+
+                <!-- フルスクリーンボタン -->
+                <li class="d-none d-md-inline-block">
+                    <a class="nav-link" href="#" data-toggle="fullscreen">
+                        <i class="mdi mdi-fullscreen fs-20"></i>
+                    </a>
+                </li>
+
+                <!-- 通知 -->
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <i class="mdi mdi-bell fs-20"></i>
+                        <span class="noti-icon-badge"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg py-0">
+                        <div class="p-2 border-top-0 border-start-0 border-end-0 border-dashed border">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="m-0 fs-16 fw-semibold">通知</h6>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="javascript: void(0);" class="text-dark text-decoration-underline">
+                                        <small>すべてクリア</small>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="px-1" style="max-height: 300px;" data-simplebar>
+                            <h5 class="text-muted font-13 fw-normal mt-2">今日</h5>
+                            <!-- アイテム -->
+                            <a href="javascript:void(0);" class="dropdown-item p-0 notify-item card unread-noti shadow-none mb-1">
+                                <div class="card-body">
+                                    <span class="float-end noti-close-btn text-muted"><i class="mdi mdi-close"></i></span>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <div class="notify-icon bg-success">
+                                                <i class="mdi mdi-account-plus"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 text-truncate ms-2">
+                                            <h5 class="noti-item-title fw-semibold fs-14">新入社員 <small class="fw-normal text-muted ms-1">2時間前</small></h5>
+                                            <small class="noti-item-subtitle text-muted">田中太郎さんが入社しました</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item border-top py-2">
+                            すべて表示
+                        </a>
+                    </div>
+                </li>
+
+                <!-- ユーザードロップダウン -->
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle nav-user me-0" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <img src="images/users/user-11.jpg" alt="ユーザー画像" class="rounded-circle">
+                        <span class="pro-user-name ms-1">
+                            佐助 <i class="mdi mdi-chevron-down"></i>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end profile-dropdown">
+                        <!-- アイテム -->
+                        <div class="dropdown-header noti-title">
+                            <h6 class="text-overflow m-0">ようこそ！</h6>
+                        </div>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-account-circle me-1"></i>
+                            <span>マイアカウント</span>
+                        </a>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-cog-outline me-1"></i>
+                            <span>設定</span>
+                        </a>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-lifebuoy me-1"></i>
+                            <span>サポート</span>
+                        </a>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-lock-outline me-1"></i>
+                            <span>画面ロック</span>
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-logout me-1"></i>
+                            <span>ログアウト</span>
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!-- ========== トップバー終了 ========== -->
+
+    <!-- ========== 左サイドバー開始 ========== -->
+    <div class="app-sidebar-menu">
+        <div class="h-100" data-simplebar>
+
+            <!--- サイドメニュー -->
+            <div id="sidebar-menu">
+
+                <div class="logo-box">
+                    <a href="index.html" class="logo logo-light">
+                        <span class="logo-sm">
+                            <img src="images/logo-sm.png" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="images/logo-light.png" alt="" height="24">
+                        </span>
+                    </a>
+                    <a href="index.html" class="logo logo-dark">
+                        <span class="logo-sm">
+                            <img src="images/logo-sm.png" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="images/logo-dark.png" alt="" height="24">
+                        </span>
+                    </a>
+                </div>
+
+                <ul id="side-menu">
+
+                    <li class="menu-title">ナビゲーション</li>
+
+                    <li>
+                        <a href="#sidebarDashboards" data-bs-toggle="collapse">
+                            <i class="mdi mdi-view-dashboard-outline"></i>
+                            <span>ダッシュボード</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarDashboards">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="index.html">CRM</a>
+                                </li>
+                                <li>
+                                    <a href="analytics.html">アナリティクス</a>
+                                </li>
+                                <li>
+                                    <a href="ecommerce.html">Eコマース</a>
+                                </li>
+                                <li>
+                                    <a href="projects.html">プロジェクト</a>
+                                </li>
+                                <li>
+                                    <a href="hrm.html" class="active">人事管理</a>
+                                </li>
+                                <li>
+                                    <a href="jobs.html">求人</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-title">アプリケーション</li>
+
+                    <li>
+                        <a href="calendar.html">
+                            <i class="mdi mdi-calendar-blank-outline"></i>
+                            <span>カレンダー</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="todolist.html">
+                            <i class="mdi mdi-format-list-checkbox"></i>
+                            <span>TODOリスト</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarProjects" data-bs-toggle="collapse">
+                            <i class="mdi mdi-briefcase-variant-outline"></i>
+                            <span>プロジェクト</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarProjects">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="projects.html">一覧</a>
+                                </li>
+                                <li>
+                                    <a href="projects-detail.html">詳細</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarContacts" data-bs-toggle="collapse">
+                            <i class="mdi mdi-account-multiple-outline"></i>
+                            <span>連絡先</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarContacts">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="contacts.html">メンバー</a>
+                                </li>
+                                <li>
+                                    <a href="contacts-profile.html">プロフィール</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-title">カスタム</li>
+
+                    <li>
+                        <a href="#sidebarAuth" data-bs-toggle="collapse">
+                            <i class="mdi mdi-account-circle-outline"></i>
+                            <span>認証ページ</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarAuth">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="auth-login.html">ログイン</a>
+                                </li>
+                                <li>
+                                    <a href="auth-register.html">登録</a>
+                                </li>
+                                <li>
+                                    <a href="auth-recoverpw.html">パスワード復旧</a>
+                                </li>
+                                <li>
+                                    <a href="auth-lock-screen.html">画面ロック</a>
+                                </li>
+                                <li>
+                                    <a href="auth-logout.html">ログアウト</a>
+                                </li>
+                                <li>
+                                    <a href="auth-confirm-mail.html">メール確認</a>
+                                </li>
+                                <li>
+                                    <a href="email-verification.html">メール認証</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarPages" data-bs-toggle="collapse">
+                            <i class="mdi mdi-text-box-multiple-outline"></i>
+                            <span>ページ</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarPages">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="pages-starter.html">スターター</a>
+                                </li>
+                                <li>
+                                    <a href="pages-profile.html">プロフィール</a>
+                                </li>
+                                <li>
+                                    <a href="pages-timeline.html">タイムライン</a>
+                                </li>
+                                <li>
+                                    <a href="pages-invoice.html">請求書</a>
+                                </li>
+                                <li>
+                                    <a href="pages-faqs.html">よくある質問</a>
+                                </li>
+                                <li>
+                                    <a href="pages-pricing.html">料金</a>
+                                </li>
+                                <li>
+                                    <a href="pages-maintenance.html">メンテナンス</a>
+                                </li>
+                                <li>
+                                    <a href="pages-coming-soon.html">近日公開</a>
+                                </li>
+                                <li>
+                                    <a href="pages-gallery.html">ギャラリー</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-title">UI要素</li>
+
+                    <li>
+                        <a href="#sidebarUI" data-bs-toggle="collapse">
+                            <i class="mdi mdi-palette-outline"></i>
+                            <span>UI要素</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarUI">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="ui-buttons.html">ボタン</a>
+                                </li>
+                                <li>
+                                    <a href="ui-cards.html">カード</a>
+                                </li>
+                                <li>
+                                    <a href="ui-modals.html">モーダル</a>
+                                </li>
+                                <li>
+                                    <a href="ui-tabs.html">タブ</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarForms" data-bs-toggle="collapse">
+                            <i class="mdi mdi-form-select"></i>
+                            <span>フォーム</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarForms">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="forms-elements.html">フォーム要素</a>
+                                </li>
+                                <li>
+                                    <a href="forms-validation.html">バリデーション</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarTables" data-bs-toggle="collapse">
+                            <i class="mdi mdi-table"></i>
+                            <span>テーブル</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarTables">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="tables-basic.html">基本テーブル</a>
+                                </li>
+                                <li>
+                                    <a href="tables-datatables.html">データテーブル</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarCharts" data-bs-toggle="collapse">
+                            <i class="mdi mdi-chart-line"></i>
+                            <span>チャート</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarCharts">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="charts-area.html">エリアチャート</a>
+                                </li>
+                                <li>
+                                    <a href="charts-bar.html">バーチャート</a>
+                                </li>
+                                <li>
+                                    <a href="charts-line.html">ラインチャート</a>
+                                </li>
+                                <li>
+                                    <a href="charts-pie.html">パイチャート</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </div>
+            <!-- サイドバー終了 -->
+
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+    <!-- ========== 左サイドバー終了 ========== -->
+
+    <!-- ============================================================== -->
+    <!-- ページコンテンツ開始 -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+
+        <div class="content">
+
+            <!-- コンテンツ開始 -->
+            <div class="container-fluid">
+                
+                <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
+                    <div class="flex-grow-1">
+                        <h4 class="fs-18 fw-semibold m-0 japanese-text">人事管理</h4>
+                        <p class="text-muted mb-0 japanese-text">従業員管理と人事データ</p>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#employeeModal">
+                            <i class="mdi mdi-plus me-1"></i>新しい従業員
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 統計カード -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h3 class="text-primary number">156</h3>
+                                <p class="text-muted mb-0 japanese-text">総従業員数</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h3 class="text-success number">142</h3>
+                                <p class="text-muted mb-0 japanese-text">出勤中</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h3 class="text-warning number">8</h3>
+                                <p class="text-muted mb-0 japanese-text">休暇中</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h3 class="text-info number">6</h3>
+                                <p class="text-muted mb-0 japanese-text">リモート</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 出勤状況と給与情報 -->
+                <div class="row mb-4">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title japanese-text">月次出勤状況</h5>
+                                <div class="attendance-chart">
+                                    <div>
+                                        <h3 class="number">94.2%</h3>
+                                        <p class="japanese-text">平均出勤率</p>
+                                        <small class="japanese-text">前月比 +2.1%</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="salary-info">
+                                    <h5 class="japanese-text">月次給与総額</h5>
+                                    <h3 class="number">¥45,600,000</h3>
+                                    <small class="japanese-text">前月比 +3.2%</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 従業員一覧 -->
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card employee-card">
+                            <div class="card-body text-center">
+                                <img src="images/users/user-1.jpg" alt="田中太郎" class="employee-avatar mb-3">
+                                <h5 class="card-title japanese-text">田中太郎</h5>
+                                <span class="department-badge japanese-text">開発部</span>
+                                <p class="text-muted mt-2 japanese-text">シニアエンジニア</p>
+                                <span class="employee-status status-active japanese-text">出勤中</span>
+                                
+                                <div class="mt-3">
+                                    <small class="japanese-text">パフォーマンス</small>
+                                    <div class="performance-meter">
+                                        <div class="performance-bar bg-success" style="width: 92%"></div>
+                                    </div>
+                                    <small class="text-muted number">92%</small>
+                                </div>
+
+                                <div class="employee-contact">
+                                    <div class="japanese-text">📧 tanaka@company.com</div>
+                                    <div class="japanese-text">📞 090-1234-5678</div>
+                                </div>
+
+                                <div class="quick-actions">
+                                    <button class="btn btn-outline-primary">詳細</button>
+                                    <button class="btn btn-outline-success">メッセージ</button>
+                                    <button class="btn btn-outline-info">編集</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card employee-card">
+                            <div class="card-body text-center">
+                                <img src="images/users/user-2.jpg" alt="佐藤花子" class="employee-avatar mb-3">
+                                <h5 class="card-title japanese-text">佐藤花子</h5>
+                                <span class="department-badge japanese-text">マーケティング部</span>
+                                <p class="text-muted mt-2 japanese-text">マーケティングマネージャー</p>
+                                <span class="employee-status status-remote japanese-text">リモート</span>
+                                
+                                <div class="mt-3">
+                                    <small class="japanese-text">パフォーマンス</small>
+                                    <div class="performance-meter">
+                                        <div class="performance-bar bg-info" style="width: 88%"></div>
+                                    </div>
+                                    <small class="text-muted number">88%</small>
+                                </div>
+
+                                <div class="employee-contact">
+                                    <div class="japanese-text">📧 sato@company.com</div>
+                                    <div class="japanese-text">📞 090-2345-6789</div>
+                                </div>
+
+                                <div class="quick-actions">
+                                    <button class="btn btn-outline-primary">詳細</button>
+                                    <button class="btn btn-outline-success">メッセージ</button>
+                                    <button class="btn btn-outline-info">編集</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card employee-card">
+                            <div class="card-body text-center">
+                                <img src="images/users/user-3.jpg" alt="鈴木一郎" class="employee-avatar mb-3">
+                                <h5 class="card-title japanese-text">鈴木一郎</h5>
+                                <span class="department-badge japanese-text">営業部</span>
+                                <p class="text-muted mt-2 japanese-text">営業部長</p>
+                                <span class="employee-status status-active japanese-text">出勤中</span>
+                                
+                                <div class="mt-3">
+                                    <small class="japanese-text">パフォーマンス</small>
+                                    <div class="performance-meter">
+                                        <div class="performance-bar bg-warning" style="width: 95%"></div>
+                                    </div>
+                                    <small class="text-muted number">95%</small>
+                                </div>
+
+                                <div class="employee-contact">
+                                    <div class="japanese-text">📧 suzuki@company.com</div>
+                                    <div class="japanese-text">📞 090-3456-7890</div>
+                                </div>
+
+                                <div class="quick-actions">
+                                    <button class="btn btn-outline-primary">詳細</button>
+                                    <button class="btn btn-outline-success">メッセージ</button>
+                                    <button class="btn btn-outline-info">編集</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card employee-card">
+                            <div class="card-body text-center">
+                                <img src="images/users/user-4.jpg" alt="高橋美咲" class="employee-avatar mb-3">
+                                <h5 class="card-title japanese-text">高橋美咲</h5>
+                                <span class="department-badge japanese-text">デザイン部</span>
+                                <p class="text-muted mt-2 japanese-text">UIUXデザイナー</p>
+                                <span class="employee-status status-leave japanese-text">休暇中</span>
+                                
+                                <div class="mt-3">
+                                    <small class="japanese-text">パフォーマンス</small>
+                                    <div class="performance-meter">
+                                        <div class="performance-bar bg-primary" style="width: 90%"></div>
+                                    </div>
+                                    <small class="text-muted number">90%</small>
+                                </div>
+
+                                <div class="employee-contact">
+                                    <div class="japanese-text">📧 takahashi@company.com</div>
+                                    <div class="japanese-text">📞 090-4567-8901</div>
+                                </div>
+
+                                <div class="quick-actions">
+                                    <button class="btn btn-outline-primary">詳細</button>
+                                    <button class="btn btn-outline-success">メッセージ</button>
+                                    <button class="btn btn-outline-info">編集</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card employee-card">
+                            <div class="card-body text-center">
+                                <img src="images/users/user-5.jpg" alt="山田健太" class="employee-avatar mb-3">
+                                <h5 class="card-title japanese-text">山田健太</h5>
+                                <span class="department-badge japanese-text">開発部</span>
+                                <p class="text-muted mt-2 japanese-text">フロントエンドエンジニア</p>
+                                <span class="employee-status status-active japanese-text">出勤中</span>
+                                
+                                <div class="mt-3">
+                                    <small class="japanese-text">パフォーマンス</small>
+                                    <div class="performance-meter">
+                                        <div class="performance-bar bg-success" style="width: 87%"></div>
+                                    </div>
+                                    <small class="text-muted number">87%</small>
+                                </div>
+
+                                <div class="employee-contact">
+                                    <div class="japanese-text">📧 yamada@company.com</div>
+                                    <div class="japanese-text">📞 090-5678-9012</div>
+                                </div>
+
+                                <div class="quick-actions">
+                                    <button class="btn btn-outline-primary">詳細</button>
+                                    <button class="btn btn-outline-success">メッセージ</button>
+                                    <button class="btn btn-outline-info">編集</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card employee-card">
+                            <div class="card-body text-center">
+                                <img src="images/users/user-6.jpg" alt="伊藤雅子" class="employee-avatar mb-3">
+                                <h5 class="card-title japanese-text">伊藤雅子</h5>
+                                <span class="department-badge japanese-text">人事部</span>
+                                <p class="text-muted mt-2 japanese-text">人事部長</p>
+                                <span class="employee-status status-active japanese-text">出勤中</span>
+                                
+                                <div class="mt-3">
+                                    <small class="japanese-text">パフォーマンス</small>
+                                    <div class="performance-meter">
+                                        <div class="performance-bar bg-info" style="width: 93%"></div>
+                                    </div>
+                                    <small class="text-muted number">93%</small>
+                                </div>
+
+                                <div class="employee-contact">
+                                    <div class="japanese-text">📧 ito@company.com</div>
+                                    <div class="japanese-text">📞 090-6789-0123</div>
+                                </div>
+
+                                <div class="quick-actions">
+                                    <button class="btn btn-outline-primary">詳細</button>
+                                    <button class="btn btn-outline-success">メッセージ</button>
+                                    <button class="btn btn-outline-info">編集</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- コンテナ終了 -->
+
+        </div>
+        <!-- コンテンツ終了 -->
+
+        <!-- フッター開始 -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <script>document.write(new Date().getFullYear())</script> © Sasuke - <i class="mdi mdi-heart text-danger"></i> で作成 by <b>Sasuke</b>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-md-end footer-links d-none d-md-block">
+                            <a href="javascript: void(0);" class="japanese-text">概要</a>
+                            <a href="javascript: void(0);" class="japanese-text">サポート</a>
+                            <a href="javascript: void(0);" class="japanese-text">お問い合わせ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- フッター終了 -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- ページコンテンツ終了 -->
+    <!-- ============================================================== -->
+
+</div>
+
+<!-- 従業員追加モーダル -->
+<div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title japanese-text" id="employeeModalLabel">新しい従業員</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="employeeName" class="form-label japanese-text">氏名</label>
+                                <input type="text" class="form-control" id="employeeName" placeholder="氏名を入力">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="employeeEmail" class="form-label japanese-text">メールアドレス</label>
+                                <input type="email" class="form-control" id="employeeEmail" placeholder="メールアドレスを入力">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="employeePhone" class="form-label japanese-text">電話番号</label>
+                                <input type="tel" class="form-control" id="employeePhone" placeholder="電話番号を入力">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="employeeDepartment" class="form-label japanese-text">部署</label>
+                                <select class="form-select" id="employeeDepartment">
+                                    <option value="">選択してください</option>
+                                    <option value="development">開発部</option>
+                                    <option value="marketing">マーケティング部</option>
+                                    <option value="sales">営業部</option>
+                                    <option value="design">デザイン部</option>
+                                    <option value="hr">人事部</option>
+                                    <option value="finance">経理部</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="employeePosition" class="form-label japanese-text">役職</label>
+                                <input type="text" class="form-control" id="employeePosition" placeholder="役職を入力">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="employeeSalary" class="form-label japanese-text">基本給</label>
+                                <input type="number" class="form-control" id="employeeSalary" placeholder="基本給を入力">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="employeeStartDate" class="form-label japanese-text">入社日</label>
+                                <input type="date" class="form-control" id="employeeStartDate">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="employeeStatus" class="form-label japanese-text">ステータス</label>
+                                <select class="form-select" id="employeeStatus">
+                                    <option value="active">出勤中</option>
+                                    <option value="remote">リモート</option>
+                                    <option value="leave">休暇中</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">登録</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ベンダー -->
+<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="libs/simplebar/simplebar.min.js"></script>
+<script src="libs/node-waves/waves.min.js"></script>
+<script src="libs/waypoints/lib/jquery.waypoints.min.js"></script>
+<script src="libs/jquery.counterup/jquery.counterup.min.js"></script>
+<script src="libs/feather-icons/feather.min.js"></script>
+
+<!-- App js -->
+<script src="js/app.js"></script>
+
+<script>
+// 人事管理機能
+document.addEventListener('DOMContentLoaded', function() {
+    // 従業員カードのホバー効果
+    document.querySelectorAll('.employee-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    
+    // フェザーアイコンの初期化
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
+    
+    console.log('人事管理ページが正常に初期化されました');
+});
+</script>
+
+</body>
+</html> 

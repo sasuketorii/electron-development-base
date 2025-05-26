@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <title>求人 | Sasuke - レスポンシブ管理ダッシュボードテンプレート</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CRM、CMS等の構築に使用できる完全機能搭載の管理テーマ"/>
+    <meta name="author" content="Sasuke"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- セキュリティポリシー -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self';
+    ">
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Noto+Sans+JP:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
+    <!-- App css -->
+    <link href="css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
+
+    <!-- Icons -->
+    <link href="css/icons.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/head.js"></script>
+
+    <style>
+        /* フォント設定 - サイズを1レベル下げる */
+        :root {
+            --font-jp: 'Noto Sans JP', sans-serif;
+            --font-en: 'Inter Tight', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+        
+        body {
+            font-family: var(--font-jp);
+            font-size: 13px; /* 14px → 13px */
+        }
+        
+        .font-en {
+            font-family: var(--font-en);
+        }
+        
+        .font-jp {
+            font-family: var(--font-jp);
+        }
+        
+        .font-mono {
+            font-family: var(--font-mono);
+        }
+        
+        /* フォントサイズ調整 */
+        .fs-22 { font-size: 20px !important; font-family: var(--font-mono); } /* 22px → 20px */
+        .fs-20 { font-size: 18px !important; font-family: var(--font-mono); } /* 20px → 18px */
+        .fs-18 { font-size: 16px !important; } /* 18px → 16px */
+        .fs-16 { font-size: 14px !important; } /* 16px → 14px */
+        .fs-15 { font-size: 13px !important; } /* 15px → 13px */
+        .fs-14 { font-size: 12px !important; } /* 14px → 12px */
+        .fs-13 { font-size: 11px !important; } /* 13px → 11px */
+        .fs-12 { font-size: 10px !important; } /* 12px → 10px */
+        
+        /* 数字用フォント */
+        .number {
+            font-family: var(--font-mono);
+            font-weight: 500;
+        }
+        
+        /* 検索バーの調整 */
+        .app-search {
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+        
+        @media (max-width: 991.98px) {
+            .app-search {
+                margin: 0;
+            }
+        }
+        
+        /* レスポンシブ調整 - はみ出し防止 */
+        .container-fluid {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        .row {
+            margin-left: -7.5px;
+            margin-right: -7.5px;
+        }
+        
+        .col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, 
+        .col-7, .col-8, .col-9, .col-10, .col-11, .col-12,
+        .col-auto, .col-sm, .col-sm-1, .col-sm-2, .col-sm-3, 
+        .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, 
+        .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-auto,
+        .col-md, .col-md-1, .col-md-2, .col-md-3, .col-md-4, 
+        .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, 
+        .col-md-10, .col-md-11, .col-md-12, .col-md-auto,
+        .col-lg, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, 
+        .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, 
+        .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-auto,
+        .col-xl, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, 
+        .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, 
+        .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-auto {
+            padding-left: 7.5px;
+            padding-right: 7.5px;
+        }
+        
+        /* カード内のオーバーフロー防止 */
+        .card {
+            overflow: hidden;
+        }
+        
+        .card-body {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        /* 日本語テキストの調整 */
+        .japanese-text {
+            line-height: 1.6;
+            letter-spacing: 0.02em;
+        }
+        
+        /* 求人カード専用スタイル */
+        .job-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            border: 1px solid #e9ecef;
+            position: relative;
+        }
+        
+        .job-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .job-type {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+        
+        .type-fulltime {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .type-parttime {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .type-contract {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .type-remote {
+            background-color: #e2e3e5;
+            color: #383d41;
+        }
+        
+        .salary-range {
+            font-weight: 600;
+            color: #28a745;
+            font-family: var(--font-mono);
+        }
+        
+        .job-location {
+            color: #6c757d;
+            font-size: 11px;
+        }
+        
+        .job-requirements {
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        .requirement-tag {
+            display: inline-block;
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            margin: 2px;
+        }
+        
+        .job-actions {
+            display: flex;
+            gap: 5px;
+            margin-top: 15px;
+        }
+        
+        .job-actions .btn {
+            padding: 6px 12px;
+            font-size: 11px;
+        }
+        
+        .job-posted {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 9px;
+        }
+        
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid #e9ecef;
+        }
+        
+        .applicant-count {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .job-stats {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body data-menu-color="light" data-sidebar="default">
+
+<div id="app-layout">
+
+    <!-- ========== トップバー開始 ========== -->
+    <div class="navbar-custom">
+        <div class="topbar">
+            <div class="topbar-menu d-flex align-items-center gap-1">
+
+                <!-- トップバーブランドロゴ -->
+                <div class="logo-box">
+                    <!-- ブランドロゴライト -->
+                    <a href="index.html" class="logo-light">
+                        <img src="images/logo-light.png" alt="ロゴ" class="logo-lg">
+                        <img src="images/logo-sm.png" alt="小ロゴ" class="logo-sm">
+                    </a>
+
+                    <!-- ブランドロゴダーク -->
+                    <a href="index.html" class="logo-dark">
+                        <img src="images/logo-dark.png" alt="ダークロゴ" class="logo-lg">
+                        <img src="images/logo-sm.png" alt="小ロゴ" class="logo-sm">
+                    </a>
+                </div>
+
+                <!-- サイドバーメニュートグルボタン -->
+                <button class="button-toggle-menu">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+
+                <!-- 横メニュートグルボタン -->
+                <button class="navbar-toggle" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                    <div class="lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+
+                <!-- トップバー検索フォーム -->
+                <div class="app-search d-none d-lg-block">
+                    <form>
+                        <div class="input-group">
+                            <input type="search" class="form-control" placeholder="求人検索..." id="top-search">
+                            <span class="mdi mdi-magnify search-icon"></span>
+                            <button class="input-group-text btn btn-primary" type="submit">検索</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <ul class="topbar-menu d-flex align-items-center">
+                <!-- トップバー検索モバイル -->
+                <li class="dropdown d-lg-none">
+                    <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <i class="mdi mdi-magnify fs-20"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
+                        <form class="p-3">
+                            <input type="search" class="form-control" placeholder="求人検索..." aria-label="検索キーワード">
+                        </form>
+                    </div>
+                </li>
+
+                <!-- フルスクリーンボタン -->
+                <li class="d-none d-md-inline-block">
+                    <a class="nav-link" href="#" data-toggle="fullscreen">
+                        <i class="mdi mdi-fullscreen fs-20"></i>
+                    </a>
+                </li>
+
+                <!-- 通知 -->
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <i class="mdi mdi-bell fs-20"></i>
+                        <span class="noti-icon-badge"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg py-0">
+                        <div class="p-2 border-top-0 border-start-0 border-end-0 border-dashed border">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h6 class="m-0 fs-16 fw-semibold">通知</h6>
+                                </div>
+                                <div class="col-auto">
+                                    <a href="javascript: void(0);" class="text-dark text-decoration-underline">
+                                        <small>すべてクリア</small>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="px-1" style="max-height: 300px;" data-simplebar>
+                            <h5 class="text-muted font-13 fw-normal mt-2">今日</h5>
+                            <!-- アイテム -->
+                            <a href="javascript:void(0);" class="dropdown-item p-0 notify-item card unread-noti shadow-none mb-1">
+                                <div class="card-body">
+                                    <span class="float-end noti-close-btn text-muted"><i class="mdi mdi-close"></i></span>
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <div class="notify-icon bg-primary">
+                                                <i class="mdi mdi-briefcase"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 text-truncate ms-2">
+                                            <h5 class="noti-item-title fw-semibold fs-14">新しい応募 <small class="fw-normal text-muted ms-1">30分前</small></h5>
+                                            <small class="noti-item-subtitle text-muted">フロントエンドエンジニアの求人に応募がありました</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item border-top py-2">
+                            すべて表示
+                        </a>
+                    </div>
+                </li>
+
+                <!-- ユーザードロップダウン -->
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle nav-user me-0" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <img src="images/users/user-11.jpg" alt="ユーザー画像" class="rounded-circle">
+                        <span class="pro-user-name ms-1">
+                            佐助 <i class="mdi mdi-chevron-down"></i>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end profile-dropdown">
+                        <!-- アイテム -->
+                        <div class="dropdown-header noti-title">
+                            <h6 class="text-overflow m-0">ようこそ！</h6>
+                        </div>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-account-circle me-1"></i>
+                            <span>マイアカウント</span>
+                        </a>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-cog-outline me-1"></i>
+                            <span>設定</span>
+                        </a>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-lifebuoy me-1"></i>
+                            <span>サポート</span>
+                        </a>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-lock-outline me-1"></i>
+                            <span>画面ロック</span>
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <!-- アイテム -->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-logout me-1"></i>
+                            <span>ログアウト</span>
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!-- ========== トップバー終了 ========== -->
+
+    <!-- ========== 左サイドバー開始 ========== -->
+    <div class="app-sidebar-menu">
+        <div class="h-100" data-simplebar>
+
+            <!--- サイドメニュー -->
+            <div id="sidebar-menu">
+
+                <div class="logo-box">
+                    <a href="index.html" class="logo logo-light">
+                        <span class="logo-sm">
+                            <img src="images/logo-sm.png" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="images/logo-light.png" alt="" height="24">
+                        </span>
+                    </a>
+                    <a href="index.html" class="logo logo-dark">
+                        <span class="logo-sm">
+                            <img src="images/logo-sm.png" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="images/logo-dark.png" alt="" height="24">
+                        </span>
+                    </a>
+                </div>
+
+                <ul id="side-menu">
+
+                    <li class="menu-title">ナビゲーション</li>
+
+                    <li>
+                        <a href="#sidebarDashboards" data-bs-toggle="collapse">
+                            <i class="mdi mdi-view-dashboard-outline"></i>
+                            <span>ダッシュボード</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarDashboards">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="index.html">CRM</a>
+                                </li>
+                                <li>
+                                    <a href="analytics.html">アナリティクス</a>
+                                </li>
+                                <li>
+                                    <a href="ecommerce.html">Eコマース</a>
+                                </li>
+                                <li>
+                                    <a href="projects.html">プロジェクト</a>
+                                </li>
+                                <li>
+                                    <a href="hrm.html">人事管理</a>
+                                </li>
+                                <li>
+                                    <a href="jobs.html" class="active">求人</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-title">アプリケーション</li>
+
+                    <li>
+                        <a href="calendar.html">
+                            <i class="mdi mdi-calendar-blank-outline"></i>
+                            <span>カレンダー</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="todolist.html">
+                            <i class="mdi mdi-format-list-checkbox"></i>
+                            <span>TODOリスト</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarProjects" data-bs-toggle="collapse">
+                            <i class="mdi mdi-briefcase-variant-outline"></i>
+                            <span>プロジェクト</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarProjects">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="projects.html">一覧</a>
+                                </li>
+                                <li>
+                                    <a href="projects-detail.html">詳細</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarContacts" data-bs-toggle="collapse">
+                            <i class="mdi mdi-account-multiple-outline"></i>
+                            <span>連絡先</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarContacts">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="contacts.html">メンバー</a>
+                                </li>
+                                <li>
+                                    <a href="contacts-profile.html">プロフィール</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-title">カスタム</li>
+
+                    <li>
+                        <a href="#sidebarAuth" data-bs-toggle="collapse">
+                            <i class="mdi mdi-account-circle-outline"></i>
+                            <span>認証ページ</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarAuth">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="auth-login.html">ログイン</a>
+                                </li>
+                                <li>
+                                    <a href="auth-register.html">登録</a>
+                                </li>
+                                <li>
+                                    <a href="auth-recoverpw.html">パスワード復旧</a>
+                                </li>
+                                <li>
+                                    <a href="auth-lock-screen.html">画面ロック</a>
+                                </li>
+                                <li>
+                                    <a href="auth-logout.html">ログアウト</a>
+                                </li>
+                                <li>
+                                    <a href="auth-confirm-mail.html">メール確認</a>
+                                </li>
+                                <li>
+                                    <a href="email-verification.html">メール認証</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarPages" data-bs-toggle="collapse">
+                            <i class="mdi mdi-text-box-multiple-outline"></i>
+                            <span>ページ</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarPages">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="pages-starter.html">スターター</a>
+                                </li>
+                                <li>
+                                    <a href="pages-profile.html">プロフィール</a>
+                                </li>
+                                <li>
+                                    <a href="pages-timeline.html">タイムライン</a>
+                                </li>
+                                <li>
+                                    <a href="pages-invoice.html">請求書</a>
+                                </li>
+                                <li>
+                                    <a href="pages-faqs.html">よくある質問</a>
+                                </li>
+                                <li>
+                                    <a href="pages-pricing.html">料金</a>
+                                </li>
+                                <li>
+                                    <a href="pages-maintenance.html">メンテナンス</a>
+                                </li>
+                                <li>
+                                    <a href="pages-coming-soon.html">近日公開</a>
+                                </li>
+                                <li>
+                                    <a href="pages-gallery.html">ギャラリー</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-title">UI要素</li>
+
+                    <li>
+                        <a href="#sidebarUI" data-bs-toggle="collapse">
+                            <i class="mdi mdi-palette-outline"></i>
+                            <span>UI要素</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarUI">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="ui-buttons.html">ボタン</a>
+                                </li>
+                                <li>
+                                    <a href="ui-cards.html">カード</a>
+                                </li>
+                                <li>
+                                    <a href="ui-modals.html">モーダル</a>
+                                </li>
+                                <li>
+                                    <a href="ui-tabs.html">タブ</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarForms" data-bs-toggle="collapse">
+                            <i class="mdi mdi-form-select"></i>
+                            <span>フォーム</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarForms">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="forms-elements.html">フォーム要素</a>
+                                </li>
+                                <li>
+                                    <a href="forms-validation.html">バリデーション</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarTables" data-bs-toggle="collapse">
+                            <i class="mdi mdi-table"></i>
+                            <span>テーブル</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarTables">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="tables-basic.html">基本テーブル</a>
+                                </li>
+                                <li>
+                                    <a href="tables-datatables.html">データテーブル</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#sidebarCharts" data-bs-toggle="collapse">
+                            <i class="mdi mdi-chart-line"></i>
+                            <span>チャート</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarCharts">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="charts-area.html">エリアチャート</a>
+                                </li>
+                                <li>
+                                    <a href="charts-bar.html">バーチャート</a>
+                                </li>
+                                <li>
+                                    <a href="charts-line.html">ラインチャート</a>
+                                </li>
+                                <li>
+                                    <a href="charts-pie.html">パイチャート</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </div>
+            <!-- サイドバー終了 -->
+
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+    <!-- ========== 左サイドバー終了 ========== -->
+
+    <!-- ============================================================== -->
+    <!-- ページコンテンツ開始 -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+
+        <div class="content">
+
+            <!-- コンテンツ開始 -->
+            <div class="container-fluid">
+                
+                <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
+                    <div class="flex-grow-1">
+                        <h4 class="fs-18 fw-semibold m-0 japanese-text">求人</h4>
+                        <p class="text-muted mb-0 japanese-text">求人管理と応募者追跡</p>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jobModal">
+                            <i class="mdi mdi-plus me-1"></i>新しい求人
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 統計カード -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h3 class="text-primary number">24</h3>
+                                <p class="text-muted mb-0 japanese-text">公開中の求人</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h3 class="text-success number">156</h3>
+                                <p class="text-muted mb-0 japanese-text">総応募者数</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h3 class="text-warning number">32</h3>
+                                <p class="text-muted mb-0 japanese-text">面接予定</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h3 class="text-info number">8</h3>
+                                <p class="text-muted mb-0 japanese-text">内定者</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 応募状況と統計 -->
+                <div class="row mb-4">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title japanese-text">月次応募状況</h5>
+                                <div class="applicant-count">
+                                    <h3 class="number">+42</h3>
+                                    <p class="japanese-text">今月の新規応募</p>
+                                    <small class="japanese-text">前月比 +18.5%</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="job-stats">
+                                    <h5 class="japanese-text">採用成功率</h5>
+                                    <h3 class="number">73.2%</h3>
+                                    <small class="japanese-text">前月比 +5.1%</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 求人一覧 -->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card job-card">
+                            <div class="job-posted">3日前</div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <img src="images/companies/company-1.png" alt="会社ロゴ" class="company-logo me-3">
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title japanese-text">フロントエンドエンジニア</h5>
+                                        <p class="text-muted japanese-text">株式会社テックイノベーション</p>
+                                        <span class="job-type type-fulltime japanese-text">正社員</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="salary-range mb-2">¥4,500,000 - ¥7,200,000</div>
+                                <div class="job-location mb-3">📍 東京都渋谷区（リモート可）</div>
+                                
+                                <p class="card-text japanese-text">React、TypeScript、Next.jsを使用したWebアプリケーション開発。モダンな技術スタックで最新のフロントエンド開発に携われます。</p>
+                                
+                                <div class="job-requirements">
+                                    <small class="text-muted japanese-text">必要スキル:</small><br>
+                                    <span class="requirement-tag">React</span>
+                                    <span class="requirement-tag">TypeScript</span>
+                                    <span class="requirement-tag">Next.js</span>
+                                    <span class="requirement-tag">Git</span>
+                                    <span class="requirement-tag">3年以上の経験</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted japanese-text">応募者: <span class="number">23</span>名</small>
+                                    <div class="job-actions">
+                                        <button class="btn btn-outline-primary">詳細</button>
+                                        <button class="btn btn-outline-success">応募者</button>
+                                        <button class="btn btn-outline-info">編集</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card job-card">
+                            <div class="job-posted">1週間前</div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <img src="images/companies/company-2.png" alt="会社ロゴ" class="company-logo me-3">
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title japanese-text">バックエンドエンジニア</h5>
+                                        <p class="text-muted japanese-text">株式会社クラウドソリューションズ</p>
+                                        <span class="job-type type-fulltime japanese-text">正社員</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="salary-range mb-2">¥5,000,000 - ¥8,500,000</div>
+                                <div class="job-location mb-3">📍 東京都新宿区</div>
+                                
+                                <p class="card-text japanese-text">Node.js、Python、AWSを使用したサーバーサイド開発。スケーラブルなシステム設計と開発に携われます。</p>
+                                
+                                <div class="job-requirements">
+                                    <small class="text-muted japanese-text">必要スキル:</small><br>
+                                    <span class="requirement-tag">Node.js</span>
+                                    <span class="requirement-tag">Python</span>
+                                    <span class="requirement-tag">AWS</span>
+                                    <span class="requirement-tag">Docker</span>
+                                    <span class="requirement-tag">5年以上の経験</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted japanese-text">応募者: <span class="number">18</span>名</small>
+                                    <div class="job-actions">
+                                        <button class="btn btn-outline-primary">詳細</button>
+                                        <button class="btn btn-outline-success">応募者</button>
+                                        <button class="btn btn-outline-info">編集</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card job-card">
+                            <div class="job-posted">2日前</div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <img src="images/companies/company-3.png" alt="会社ロゴ" class="company-logo me-3">
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title japanese-text">UIUXデザイナー</h5>
+                                        <p class="text-muted japanese-text">株式会社デザインスタジオ</p>
+                                        <span class="job-type type-contract japanese-text">契約社員</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="salary-range mb-2">¥3,800,000 - ¥6,000,000</div>
+                                <div class="job-location mb-3">📍 東京都港区（ハイブリッド）</div>
+                                
+                                <p class="card-text japanese-text">Webサービスやモバイルアプリのデザイン設計。ユーザー体験を重視したデザインプロセスに参加できます。</p>
+                                
+                                <div class="job-requirements">
+                                    <small class="text-muted japanese-text">必要スキル:</small><br>
+                                    <span class="requirement-tag">Figma</span>
+                                    <span class="requirement-tag">Adobe XD</span>
+                                    <span class="requirement-tag">Photoshop</span>
+                                    <span class="requirement-tag">Illustrator</span>
+                                    <span class="requirement-tag">2年以上の経験</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted japanese-text">応募者: <span class="number">31</span>名</small>
+                                    <div class="job-actions">
+                                        <button class="btn btn-outline-primary">詳細</button>
+                                        <button class="btn btn-outline-success">応募者</button>
+                                        <button class="btn btn-outline-info">編集</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card job-card">
+                            <div class="job-posted">5日前</div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <img src="images/companies/company-4.png" alt="会社ロゴ" class="company-logo me-3">
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title japanese-text">プロダクトマネージャー</h5>
+                                        <p class="text-muted japanese-text">株式会社スタートアップベンチャー</p>
+                                        <span class="job-type type-fulltime japanese-text">正社員</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="salary-range mb-2">¥6,000,000 - ¥10,000,000</div>
+                                <div class="job-location mb-3">📍 東京都千代田区</div>
+                                
+                                <p class="card-text japanese-text">プロダクト戦略の立案から実行まで。エンジニアやデザイナーと連携してプロダクト開発をリードします。</p>
+                                
+                                <div class="job-requirements">
+                                    <small class="text-muted japanese-text">必要スキル:</small><br>
+                                    <span class="requirement-tag">プロダクト企画</span>
+                                    <span class="requirement-tag">データ分析</span>
+                                    <span class="requirement-tag">チームマネジメント</span>
+                                    <span class="requirement-tag">英語</span>
+                                    <span class="requirement-tag">5年以上の経験</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted japanese-text">応募者: <span class="number">12</span>名</small>
+                                    <div class="job-actions">
+                                        <button class="btn btn-outline-primary">詳細</button>
+                                        <button class="btn btn-outline-success">応募者</button>
+                                        <button class="btn btn-outline-info">編集</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card job-card">
+                            <div class="job-posted">1日前</div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <img src="images/companies/company-5.png" alt="会社ロゴ" class="company-logo me-3">
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title japanese-text">データサイエンティスト</h5>
+                                        <p class="text-muted japanese-text">株式会社AIテクノロジー</p>
+                                        <span class="job-type type-remote japanese-text">フルリモート</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="salary-range mb-2">¥5,500,000 - ¥9,000,000</div>
+                                <div class="job-location mb-3">📍 フルリモート</div>
+                                
+                                <p class="card-text japanese-text">機械学習モデルの開発と運用。ビッグデータを活用したビジネス課題の解決に取り組みます。</p>
+                                
+                                <div class="job-requirements">
+                                    <small class="text-muted japanese-text">必要スキル:</small><br>
+                                    <span class="requirement-tag">Python</span>
+                                    <span class="requirement-tag">機械学習</span>
+                                    <span class="requirement-tag">SQL</span>
+                                    <span class="requirement-tag">統計学</span>
+                                    <span class="requirement-tag">3年以上の経験</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted japanese-text">応募者: <span class="number">27</span>名</small>
+                                    <div class="job-actions">
+                                        <button class="btn btn-outline-primary">詳細</button>
+                                        <button class="btn btn-outline-success">応募者</button>
+                                        <button class="btn btn-outline-info">編集</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card job-card">
+                            <div class="job-posted">4日前</div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <img src="images/companies/company-6.png" alt="会社ロゴ" class="company-logo me-3">
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title japanese-text">マーケティングマネージャー</h5>
+                                        <p class="text-muted japanese-text">株式会社グロースマーケティング</p>
+                                        <span class="job-type type-parttime japanese-text">パートタイム</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="salary-range mb-2">¥3,200,000 - ¥5,000,000</div>
+                                <div class="job-location mb-3">📍 東京都品川区</div>
+                                
+                                <p class="card-text japanese-text">デジタルマーケティング戦略の企画と実行。SNS、広告運用、コンテンツマーケティングを担当します。</p>
+                                
+                                <div class="job-requirements">
+                                    <small class="text-muted japanese-text">必要スキル:</small><br>
+                                    <span class="requirement-tag">Google Analytics</span>
+                                    <span class="requirement-tag">SNS運用</span>
+                                    <span class="requirement-tag">広告運用</span>
+                                    <span class="requirement-tag">コンテンツ制作</span>
+                                    <span class="requirement-tag">2年以上の経験</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted japanese-text">応募者: <span class="number">19</span>名</small>
+                                    <div class="job-actions">
+                                        <button class="btn btn-outline-primary">詳細</button>
+                                        <button class="btn btn-outline-success">応募者</button>
+                                        <button class="btn btn-outline-info">編集</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- コンテナ終了 -->
+
+        </div>
+        <!-- コンテンツ終了 -->
+
+        <!-- フッター開始 -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <script>document.write(new Date().getFullYear())</script> © Sasuke - <i class="mdi mdi-heart text-danger"></i> で作成 by <b>Sasuke</b>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-md-end footer-links d-none d-md-block">
+                            <a href="javascript: void(0);" class="japanese-text">概要</a>
+                            <a href="javascript: void(0);" class="japanese-text">サポート</a>
+                            <a href="javascript: void(0);" class="japanese-text">お問い合わせ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- フッター終了 -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- ページコンテンツ終了 -->
+    <!-- ============================================================== -->
+
+</div>
+
+<!-- 求人追加モーダル -->
+<div class="modal fade" id="jobModal" tabindex="-1" aria-labelledby="jobModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title japanese-text" id="jobModalLabel">新しい求人</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="jobTitle" class="form-label japanese-text">職種</label>
+                                <input type="text" class="form-control" id="jobTitle" placeholder="職種を入力">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="jobCompany" class="form-label japanese-text">会社名</label>
+                                <input type="text" class="form-control" id="jobCompany" placeholder="会社名を入力">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jobDescription" class="form-label japanese-text">職務内容</label>
+                        <textarea class="form-control" id="jobDescription" rows="3" placeholder="職務内容を入力"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="jobSalaryMin" class="form-label japanese-text">最低年収</label>
+                                <input type="number" class="form-control" id="jobSalaryMin" placeholder="最低年収を入力">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="jobSalaryMax" class="form-label japanese-text">最高年収</label>
+                                <input type="number" class="form-control" id="jobSalaryMax" placeholder="最高年収を入力">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="jobLocation" class="form-label japanese-text">勤務地</label>
+                                <input type="text" class="form-control" id="jobLocation" placeholder="勤務地を入力">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="jobType" class="form-label japanese-text">雇用形態</label>
+                                <select class="form-select" id="jobType">
+                                    <option value="fulltime">正社員</option>
+                                    <option value="parttime">パートタイム</option>
+                                    <option value="contract">契約社員</option>
+                                    <option value="remote">フルリモート</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jobRequirements" class="form-label japanese-text">必要スキル</label>
+                        <input type="text" class="form-control" id="jobRequirements" placeholder="必要スキルをカンマ区切りで入力">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">公開</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ベンダー -->
+<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="libs/simplebar/simplebar.min.js"></script>
+<script src="libs/node-waves/waves.min.js"></script>
+<script src="libs/waypoints/lib/jquery.waypoints.min.js"></script>
+<script src="libs/jquery.counterup/jquery.counterup.min.js"></script>
+<script src="libs/feather-icons/feather.min.js"></script>
+
+<!-- App js -->
+<script src="js/app.js"></script>
+
+<script>
+// 求人管理機能
+document.addEventListener('DOMContentLoaded', function() {
+    // 求人カードのホバー効果
+    document.querySelectorAll('.job-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    
+    // フェザーアイコンの初期化
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
+    
+    console.log('求人ページが正常に初期化されました');
+});
+</script>
+
+</body>
+</html> 

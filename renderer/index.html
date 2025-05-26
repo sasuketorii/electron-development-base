@@ -3,56 +3,222 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Electron Development Base</title>
+    <title>SaaS Dashboard - Electron Base</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="components/sidebar.css" />
+    <link rel="stylesheet" href="components/header.css" />
+    <link rel="stylesheet" href="components/tabs.css" />
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>🚀 Electron Development Base</h1>
-        <p>セキュアで拡張可能なElectronアプリケーションのベース</p>
-      </header>
-      
-      <main>
-        <section class="info-section">
-          <h2>システム情報</h2>
-          <div class="info-grid">
-            <div class="info-card">
-              <h3>Node.js</h3>
-              <p id="node-version">読み込み中...</p>
-            </div>
-            <div class="info-card">
-              <h3>Chromium</h3>
-              <p id="chrome-version">読み込み中...</p>
-            </div>
-            <div class="info-card">
-              <h3>Electron</h3>
-              <p id="electron-version">読み込み中...</p>
-            </div>
-            <div class="info-card">
-              <h3>Platform</h3>
-              <p id="platform">読み込み中...</p>
+    <div class="app-container">
+      <!-- サイドバー -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">SaaS Base</span>
+          </div>
+          <button class="sidebar-toggle" id="sidebarToggle">
+            <span class="hamburger"></span>
+          </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+          <ul class="nav-list">
+            <li class="nav-item active" data-page="dashboard">
+              <a href="#" class="nav-link">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">ダッシュボード</span>
+              </a>
+            </li>
+            <li class="nav-item" data-page="analytics">
+              <a href="#" class="nav-link">
+                <span class="nav-icon">📈</span>
+                <span class="nav-text">アナリティクス</span>
+              </a>
+            </li>
+            <li class="nav-item" data-page="users">
+              <a href="#" class="nav-link">
+                <span class="nav-icon">👥</span>
+                <span class="nav-text">ユーザー管理</span>
+              </a>
+            </li>
+            <li class="nav-item" data-page="settings">
+              <a href="#" class="nav-link">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-text">設定</span>
+              </a>
+            </li>
+            <li class="nav-item" data-page="billing">
+              <a href="#" class="nav-link">
+                <span class="nav-icon">💳</span>
+                <span class="nav-text">請求管理</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- メインコンテンツエリア -->
+      <main class="main-content">
+        <!-- ヘッダー -->
+        <header class="app-header">
+          <div class="header-left">
+            <h1 class="page-title" id="pageTitle">ダッシュボード</h1>
+          </div>
+          
+          <div class="header-right">
+            <div class="header-actions">
+              <button class="action-btn notification-btn">
+                <span class="icon">🔔</span>
+                <span class="badge">3</span>
+              </button>
+              
+              <div class="user-menu" id="userMenu">
+                <button class="user-avatar" id="userAvatar">
+                  <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMwMDdmZmYiLz4KPHN2ZyB4PSI4IiB5PSI4IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Ik04IDhDOS42NTY4NSA4IDExIDYuNjU2ODUgMTEgNUMxMSAzLjM0MzE1IDkuNjU2ODUgMiA4IDJDNi4zNDMxNSAyIDUgMy4zNDMxNSA1IDVDNSA2LjY1Njg1IDYuMzQzMTUgOCA4IDhaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNOCAxMEMxMC4yMDkxIDEwIDEyIDExLjc5MDkgMTIgMTRIMTZWMTJDMTYgOS43OTA4NiAxNC4yMDkxIDggMTIgOEg0QzEuNzkwODYgOCAwIDkuNzkwODYgMCAxMlYxNEg0QzQgMTEuNzkwOSA1Ljc5MDg2IDEwIDggMTBaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+" alt="User Avatar" />
+                  <span class="user-name">田中太郎</span>
+                  <span class="dropdown-arrow">▼</span>
+                </button>
+                
+                <div class="user-dropdown" id="userDropdown">
+                  <div class="dropdown-header">
+                    <div class="user-info">
+                      <div class="user-name">田中太郎</div>
+                      <div class="user-email">tanaka@example.com</div>
+                    </div>
+                  </div>
+                  <div class="dropdown-divider"></div>
+                  <ul class="dropdown-menu">
+                    <li><a href="#" class="dropdown-item">👤 プロフィール</a></li>
+                    <li><a href="#" class="dropdown-item">⚙️ アカウント設定</a></li>
+                    <li><a href="#" class="dropdown-item">💳 請求設定</a></li>
+                    <li><a href="#" class="dropdown-item">❓ ヘルプ</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li><a href="#" class="dropdown-item logout">🚪 ログアウト</a></li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
-        </section>
-        
-        <section class="features-section">
-          <h2>実装済み機能</h2>
-          <ul class="features-list">
-            <li>✅ セキュアなコンテキスト分離</li>
-            <li>✅ Node.js統合の無効化</li>
-            <li>✅ contextBridge API</li>
-            <li>✅ モダンなUI/UX</li>
-            <li>✅ レスポンシブデザイン</li>
-          </ul>
-        </section>
+        </header>
+
+        <!-- タブエリア -->
+        <div class="tabs-container">
+          <div class="tabs-wrapper">
+            <div class="tabs" id="tabs">
+              <div class="tab active" data-tab="overview">
+                <span class="tab-title">概要</span>
+                <button class="tab-close">×</button>
+              </div>
+            </div>
+            <button class="add-tab-btn" id="addTabBtn">+</button>
+          </div>
+        </div>
+
+        <!-- コンテンツエリア -->
+        <div class="content-area">
+          <div class="tab-content active" id="tab-overview">
+            <!-- ダッシュボードページ -->
+            <div class="page-content" id="dashboard-page">
+              <div class="dashboard-grid">
+                <!-- システム情報カード -->
+                <div class="card system-info-card">
+                  <div class="card-header">
+                    <h3 class="card-title">システム情報</h3>
+                    <span class="card-icon">💻</span>
+                  </div>
+                  <div class="card-content">
+                    <div class="info-grid">
+                      <div class="info-item">
+                        <span class="info-label">Node.js</span>
+                        <span class="info-value" id="node-version">読み込み中...</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="info-label">Chromium</span>
+                        <span class="info-value" id="chrome-version">読み込み中...</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="info-label">Electron</span>
+                        <span class="info-value" id="electron-version">読み込み中...</span>
+                      </div>
+                      <div class="info-item">
+                        <span class="info-label">Platform</span>
+                        <span class="info-value" id="platform">読み込み中...</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 実装済み機能カード -->
+                <div class="card features-card">
+                  <div class="card-header">
+                    <h3 class="card-title">実装済み機能</h3>
+                    <span class="card-icon">✅</span>
+                  </div>
+                  <div class="card-content">
+                    <ul class="features-list">
+                      <li class="feature-item">
+                        <span class="feature-icon">🔒</span>
+                        <span class="feature-text">セキュアなコンテキスト分離</span>
+                      </li>
+                      <li class="feature-item">
+                        <span class="feature-icon">🚫</span>
+                        <span class="feature-text">Node.js統合の無効化</span>
+                      </li>
+                      <li class="feature-item">
+                        <span class="feature-icon">🌉</span>
+                        <span class="feature-text">contextBridge API</span>
+                      </li>
+                      <li class="feature-item">
+                        <span class="feature-icon">🎨</span>
+                        <span class="feature-text">モダンなUI/UX</span>
+                      </li>
+                      <li class="feature-item">
+                        <span class="feature-icon">📱</span>
+                        <span class="feature-text">レスポンシブデザイン</span>
+                      </li>
+                      <li class="feature-item">
+                        <span class="feature-icon">📊</span>
+                        <span class="feature-text">SaaSダッシュボード</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- クイックアクションカード -->
+                <div class="card quick-actions-card">
+                  <div class="card-header">
+                    <h3 class="card-title">クイックアクション</h3>
+                    <span class="card-icon">⚡</span>
+                  </div>
+                  <div class="card-content">
+                    <div class="action-buttons">
+                      <button class="action-button primary">
+                        <span class="action-icon">➕</span>
+                        <span class="action-text">新規作成</span>
+                      </button>
+                      <button class="action-button secondary">
+                        <span class="action-icon">📊</span>
+                        <span class="action-text">レポート生成</span>
+                      </button>
+                      <button class="action-button secondary">
+                        <span class="action-icon">⚙️</span>
+                        <span class="action-text">設定</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
-      
-      <footer>
-        <p>&copy; 2024 Electron Development Base</p>
-      </footer>
     </div>
-    
+
     <script src="script.js"></script>
+    <script src="components/sidebar.js"></script>
+    <script src="components/tabs.js"></script>
+    <script src="components/user-menu.js"></script>
   </body>
 </html> 

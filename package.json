@@ -1,0 +1,81 @@
+{
+  "name": "electron-development-base",
+  "version": "1.0.0",
+  "description": "セキュアで拡張可能なElectronアプリケーションの開発ベース",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "NODE_ENV=development electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "clean": "rimraf dist build"
+  },
+  "keywords": [
+    "electron",
+    "desktop",
+    "app",
+    "development",
+    "base",
+    "template",
+    "secure",
+    "modern"
+  ],
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/yourusername/electron-development-base",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/electron-development-base.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/electron-development-base/issues"
+  },
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "devDependencies": {
+    "electron": "^32.0.0",
+    "electron-builder": "^24.13.3",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-node": "^11.1.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5"
+  },
+  "build": {
+    "appId": "com.example.electron-development-base",
+    "productName": "Electron Development Base",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}
